@@ -1,4 +1,4 @@
-import NavbarButtons from "./navbar-buttons";
+import NavbarButtons from "./button/navbar-buttons";
 import Logo from "./logo";
 
 export default function Navbar() {

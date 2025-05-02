@@ -1,4 +1,4 @@
-import ModeToggle from "@/components/dropdown-toggle-menu";
+import ModeToggle from "@/components/navbar/dropdown-toggle-menu";
 
 export default function Home() {
   return <></>;

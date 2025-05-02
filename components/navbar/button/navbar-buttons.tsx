@@ -1,4 +1,4 @@
-import ModeToggle from "./dropdown-toggle-menu";
+import ModeToggle from "../dropdown-toggle-menu";
 import LoginButtons from "./login-buttons";
 
 export default function NavbarButtons() {

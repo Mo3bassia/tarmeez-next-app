@@ -1,6 +1,8 @@
 "use client";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { Button } from "@/components/ui/button";
+import Login from "./login";
+import Register from "./register";
 
 export default function LoginButtons() {
   const [isLogined, setIsLogined] = useLocalStorage(false, "isAuthenticated");
@@ -11,8 +13,8 @@ export default function LoginButtons() {
         <Button>Logout</Button>
       ) : (
         <>
-          <Button>Login</Button>
-          <Button>Register</Button>
+          <Login />
+          <Register />
         </>
       )}
     </div>
