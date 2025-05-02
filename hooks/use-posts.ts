@@ -1,7 +1,7 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 
 function usePosts() {
-  const fetchProjects = async ({ pageParam }: { pageParam: number }) => {
+  const fetchPosts = async ({ pageParam }: { pageParam: number }) => {
     const res = await fetch(
       "https://tarmeezacademy.com/api/v1/posts?limit=15&page=" + pageParam
     );
@@ -18,8 +18,8 @@ function usePosts() {
     status,
     isLoading
   } = useInfiniteQuery({
-    queryKey: ["projects"],
-    queryFn: fetchProjects,
+    queryKey: ["Posts"],
+    queryFn: fetchPosts,
     initialPageParam: 1,
     getNextPageParam: (lastPage, pages) => {
       return lastPage.meta.current_page+1

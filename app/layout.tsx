@@ -19,7 +19,12 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={` antialiased`}>
         <ReactQueryProvider>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
             <Container>
               <Navbar />
               {children}

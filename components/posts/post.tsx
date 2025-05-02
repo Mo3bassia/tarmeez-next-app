@@ -26,6 +26,8 @@ export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
             <div className="flex gap-2.5">
               <Link href={`/users/${author.id}`}>
                 <ProfileAvatar
+                  iconSize={5}
+                  className="h-10 w-10 rounded-full ring-2 ring-primary/10 flex items-center justify-center"
                   condition={
                     typeof author.profile_image == "string" &&
                     author.profile_image != ""

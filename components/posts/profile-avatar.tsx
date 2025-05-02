@@ -8,16 +8,20 @@ export default function ProfileAvatar({
   src,
   alt,
   condition,
+  className,
+  iconSize,
 }: {
   src: string;
   alt: string;
   condition: boolean;
+  className: string;
+  iconSize: number;
 }) {
   const image = useRef(null);
   const [isError, setIsError] = useState(false);
   const fallbackContent = (
-    <AvatarFallback className="">
-      <User className="w-5 h-5 text-foreground/50" />
+    <AvatarFallback className="flex justify-center items-center">
+      <User className={`w-${iconSize} h-${iconSize}  text-foreground/50`} />
     </AvatarFallback>
   );
   function handleError() {
@@ -27,16 +31,16 @@ export default function ProfileAvatar({
     setIsError(true);
   }
   return (
-    <Avatar className="h-10 w-10 rounded-full ring-2 ring-primary/10 flex items-center justify-center">
+    <Avatar className={className}>
       {condition ? (
         <>
           <Image
-            width={40}
-            height={40}
             src={src}
             alt={alt}
+            width={1000}
+            height={1000}
             ref={image}
-            className="rounded-full object-cover w-10 h-10"
+            className="rounded-full object-cover w-full h-full"
             onError={handleError}
           />
         </>
