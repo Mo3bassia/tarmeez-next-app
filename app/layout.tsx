@@ -3,6 +3,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import Navbar from "@/components/navbar/navbar";
 import { Container } from "@/components/container";
+import ReactQueryProvider from "@/components/react-query-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -17,12 +18,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={` antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Container>
-            <Navbar />
-          </Container>
-          {children}
-        </ThemeProvider>
+        <ReactQueryProvider>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Container>
+              <Navbar />
+              {children}
+            </Container>
+          </ThemeProvider>
+        </ReactQueryProvider>
       </body>
     </html>
   );
