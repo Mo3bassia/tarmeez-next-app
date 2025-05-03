@@ -1,6 +1,6 @@
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
-import User from "@/components/user";
+import User from "@/components/user/user";
 
 export default async function UserPage({
   params: { id },

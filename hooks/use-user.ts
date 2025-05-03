@@ -13,12 +13,12 @@ function useUser(id: string) {
     }
   };
 
-  const { data, isFetching, isLoading } = useQuery({
+  const { data, isFetching, isLoading, error } = useQuery({
     queryKey: ["user"],
     queryFn: fetchUser,
   });
 
-  return { data, isFetching, isLoading };
+  return { data, isFetching, isLoading, error };
 }
 
 export { useUser };
