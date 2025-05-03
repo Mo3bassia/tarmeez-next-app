@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Calendar } from "lucide-react";
 
-import { PostProps } from "./posts";
+import { Post as PostProps } from "@/lib/schemas/posts";
 import ImagePost from "./image-post";
 import ProfileAvatar from "./profile-avatar";
 

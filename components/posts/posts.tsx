@@ -1,40 +1,34 @@
-"use client";
+  "use client";
 import { Post } from "./post";
 import { usePosts } from "@/hooks/use-posts";
 import { useCallback, useEffect, useRef } from "react";
 import { SkeletonPost } from "./skeleton-post";
 import { Button } from "../ui/button";
 
-export interface PostProps {
-  id: number;
-  title: string | null;
-  body: string;
-  author: {
-    id: number;
-    profile_image: string;
-    is_fake: boolean;
-    username: string;
-    name: string;
-    email: string | null;
-    email_verified_at: string | null;
-    remember_token: string | null;
-    created_at: string;
-    updated_at: string;
-  };
-  image?: string;
-  tags?: string[];
-  created_at: string;
-  comments_count: number;
-}
+// export interface Post {
+//   id: number;
+//   title: string | null;
+//   body: string;
+//   author: {
+//     id: number;
+//     profile_image: string;
+//     is_fake: boolean;
+//     username: string;
+//     name: string;
+//     email: string | null;
+//     email_verified_at: string | null;
+//     remember_token: string | null;
+//     created_at: string;
+//     updated_at: string;
+//   };
+//   image?: string;
+//   tags?: string[];
+//   created_at: string;
+//   comments_count: number;
+// }
+import { Post as PostProps } from "@/lib/schemas/posts";
 
 export default function Posts() {
-  // const fetchProjects = async ({ pageParam }: { pageParam: number }) => {
-  //   const res = await fetch(
-  //     "https://tarmeezacademy.com/api/v1/posts?limit=15&page=" + pageParam
-  //   );
-  //   return res.json();
-  // };
-
   const {
     data,
     error,
