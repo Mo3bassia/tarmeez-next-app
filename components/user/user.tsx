@@ -5,16 +5,13 @@ import { User, Mail, FileText, MessageSquare } from "lucide-react";
 import ProfileAvatar from "../common/profile-avatar";
 import { User as UserProps } from "@/lib/schemas/user";
 import UserError from "./user-error";
+import SkeletonUser from "./skeleton-user";
 
 export default function UserProfile({ id }: { id: string }) {
   const { data, error, isLoading, isFetching } = useUser(id);
 
   if (isLoading || isFetching) {
-    return (
-      <div className="flex justify-center items-center min-h-[60vh]">
-        <div className="h-10 w-10 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>
-      </div>
-    );
+    return <SkeletonUser />;
   }
 
   const user: UserProps = data?.data;
