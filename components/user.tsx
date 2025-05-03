@@ -3,6 +3,7 @@ import { useUser } from "@/hooks/use-user";
 import { Card, CardHeader } from "@/components/ui/card";
 import { User, Mail, FileText, MessageSquare } from "lucide-react";
 import ProfileAvatar from "./posts/profile-avatar";
+import { User as UserProps } from "@/lib/schemas/user";
 
 export default function UserProfile({ id }: { id: string }) {
   const { data, isLoading, isFetching } = useUser(id);
@@ -15,7 +16,7 @@ export default function UserProfile({ id }: { id: string }) {
     );
   }
 
-  const user = data?.data;
+  const user: UserProps = data?.data;
 
   if (!user) return <div>User not found</div>;
 
