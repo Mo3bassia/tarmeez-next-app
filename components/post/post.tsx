@@ -57,6 +57,12 @@ export default function PostProfile({ id }: { id: string }) {
         </CardHeader>
 
         <CardContent className="space-y-3 px-3 pt-1.5 pb-3">
+          {post.title && (
+            <h2 className="text-xl font-bold text-foreground/90 pb-1">
+              {post.title}
+            </h2>
+          )}
+
           {post.body && (
             <p className="text-foreground/90 px-0.5">{post.body}</p>
           )}

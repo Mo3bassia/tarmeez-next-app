@@ -15,7 +15,10 @@ import ImagePost from "../common/image-post";
 import ProfileAvatar from "../common/profile-avatar";
 
 export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
-  ({ post: { id, body, image, author, created_at, comments_count } }, ref) => {
+  (
+    { post: { id, title, body, image, author, created_at, comments_count } },
+    ref
+  ) => {
     return (
       <Card
         className="w-full max-w-2xl mx-auto mb-5 border border-border/40 hover:border-border/80 transition-colors duration-200"
@@ -55,6 +58,11 @@ export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
           </div>
         </CardHeader>
         <CardContent className="space-y-3 px-3 pt-1.5 pb-3">
+          {title && (
+            <h2 className="text-xl font-bold text-foreground/90 pb-1">
+              {title}
+            </h2>
+          )}
           {body && (
             <Link href={`/posts/${id}`} className="block group">
               <p className="text-foreground/90 px-0.5 group-hover:text-foreground transition-colors">
