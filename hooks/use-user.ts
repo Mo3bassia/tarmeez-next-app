@@ -16,6 +16,7 @@ function useUser(id: string) {
   const { data, isFetching, isLoading, error } = useQuery({
     queryKey: ["user"],
     queryFn: fetchUser,
+    refetchInterval: 60 * 1000,
   });
 
   return { data, isFetching, isLoading, error };

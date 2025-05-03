@@ -32,6 +32,7 @@ function useUsers() {
     queryKey: ["Users"],
     queryFn: fetchUsers,
     initialPageParam: 1,
+    refetchInterval: 60 * 1000,
     getNextPageParam: (lastPage, pages) => {
       return lastPage.meta.current_page + 1;
     },

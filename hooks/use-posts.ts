@@ -31,6 +31,7 @@ function usePosts() {
   } = useInfiniteQuery({
     queryKey: ["Posts"],
     queryFn: fetchPosts,
+    refetchInterval: 60 * 1000,
     initialPageParam: 1,
     getNextPageParam: (lastPage, pages) => {
       return lastPage.meta.current_page + 1;
