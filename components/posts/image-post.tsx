@@ -39,7 +39,7 @@ export default function ImagePost({
         }`}
         fill
         alt={alt}
-        src={src || "https://dummyimage.com/300/09f/fff.png"}
+        src={src.length ? src : "https://dummyimage.com/300/09f/fff.png"}
         ref={image}
         onLoad={handleLoad}
         onError={handleError}

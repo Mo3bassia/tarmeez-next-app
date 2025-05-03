@@ -1,5 +1,6 @@
 import { postsArraySchema } from "@/lib/schemas/posts";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import Error from "next/error";
 
 function usePosts() {
   const fetchPosts = async ({ pageParam }: { pageParam: number }) => {
@@ -10,14 +11,12 @@ function usePosts() {
     const data = await res.json();
     const validationResult = postsArraySchema.safeParse(data.data);
     if (validationResult.success) {
-      console.log("Data is valid:", validationResult.data);
       return data;
     } else {
-      console.log(data.data.map((post) => post.image));
-      console.error("Validation error:", validationResult.error);
-      throw new Error("Invalid data structure from API");
+      throw new Error(
+        "Invalid data structure from API, please try again later."
+      );
     }
-    return data;
   };
 
   const {
@@ -38,7 +37,14 @@ function usePosts() {
     },
   });
 
-  return { data, isFetchingNextPage, hasNextPage, fetchNextPage, isLoading };
+  return {
+    data,
+    error,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+    isLoading,
+  };
 }
 
 export { usePosts };

@@ -56,7 +56,7 @@ export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
         </CardHeader>
         <CardContent className="space-y-3 px-3 pt-1.5 pb-3">
           {body && <p className="text-foreground/90 px-0.5">{body}</p>}
-          {image != "" && image && (
+          {image != "" && image.length && (
             <div className="relative aspect-video w-full rounded-lg overflow-hidden border border-border/20 mt-2">
               <ImagePost
                 src={image}

@@ -16,7 +16,6 @@ export default function UserProfile({ id }: { id: string }) {
   }
 
   const user = data?.data;
-  console.log(user);
 
   if (!user) return <div>User not found</div>;
 

@@ -1,4 +1,4 @@
-  "use client";
+"use client";
 import { Post } from "./post";
 import { usePosts } from "@/hooks/use-posts";
 import { useCallback, useEffect, useRef } from "react";
@@ -27,6 +27,7 @@ import { Button } from "../ui/button";
 //   comments_count: number;
 // }
 import { Post as PostProps } from "@/lib/schemas/posts";
+import { PostsError } from "./posts-error";
 
 export default function Posts() {
   const {
@@ -39,6 +40,11 @@ export default function Posts() {
     isFetching,
     isLoading,
   } = usePosts();
+  useEffect(() => {
+    if (error) {
+      return <PostsError error={error} reset={() => fetchNextPage()} />;
+    }
+  }, [error, data]);
 
   const observer = useRef(null);
   const lastElementRef = useCallback(
@@ -55,10 +61,6 @@ export default function Posts() {
     [isLoading, hasNextPage, isFetchingNextPage, fetchNextPage]
   );
 
-  useEffect(() => {
-    console.log(isFetching);
-  }, [isFetching]);
-
   if (isLoading) {
     return (
       <div className="mt-20 grid grid-cols-1 items-center justify-center space-y-5">
@@ -68,6 +70,10 @@ export default function Posts() {
         <SkeletonPost />
       </div>
     );
+  }
+
+  if (error) {
+    return <PostsError error={error} reset={() => fetchNextPage()} />;
   }
 
   return (
