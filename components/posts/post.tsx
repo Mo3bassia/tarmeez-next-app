@@ -8,11 +8,11 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Calendar } from "lucide-react";
+import { MessageCircle, Calendar, ExternalLink } from "lucide-react";
 
 import { Post as PostProps } from "@/lib/schemas/posts";
-import ImagePost from "./image-post";
-import ProfileAvatar from "./profile-avatar";
+import ImagePost from "../common/image-post";
+import ProfileAvatar from "../common/profile-avatar";
 
 export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
   ({ post: { id, body, image, author, created_at, comments_count } }, ref) => {
@@ -55,18 +55,26 @@ export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
           </div>
         </CardHeader>
         <CardContent className="space-y-3 px-3 pt-1.5 pb-3">
-          {body && <p className="text-foreground/90 px-0.5">{body}</p>}
+          {body && (
+            <Link href={`/posts/${id}`} className="block group">
+              <p className="text-foreground/90 px-0.5 group-hover:text-foreground transition-colors">
+                {body}
+              </p>
+            </Link>
+          )}
           {image != "" && image.length && (
-            <div className="relative aspect-video w-full rounded-lg overflow-hidden border border-border/20 mt-2">
-              <ImagePost
-                src={image}
-                alt={body}
-                className="object-cover hover:scale-[1.02] transition-transform duration-300"
-              />
-            </div>
+            <Link href={`/posts/${id}`} className="block">
+              <div className="relative aspect-video w-full rounded-lg overflow-hidden border border-border/20 mt-2">
+                <ImagePost
+                  src={image}
+                  alt={body}
+                  className="object-cover hover:scale-[1.02] transition-transform duration-300"
+                />
+              </div>
+            </Link>
           )}
         </CardContent>
-        <CardFooter className="px-3 py-2 border-t border-border/20">
+        <CardFooter className="px-3 py-2 border-t border-border/20 flex justify-between">
           <Button
             variant="ghost"
             size="sm"
@@ -76,6 +84,17 @@ export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
             <span className="font-medium">{comments_count}</span>
             <span>Comments</span>
           </Button>
+
+          <Link href={`/posts/${id}`} className="flex items-center">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-xs text-muted-foreground hover:text-primary transition-colors gap-1"
+            >
+              <span>View Post</span>
+              <ExternalLink className="h-3 w-3" />
+            </Button>
+          </Link>
         </CardFooter>
       </Card>
     );

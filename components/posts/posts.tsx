@@ -2,7 +2,7 @@
 import { Post } from "./post";
 import { usePosts } from "@/hooks/use-posts";
 import { useCallback, useEffect, useRef } from "react";
-import { SkeletonPost } from "./skeleton-post";
+import { SkeletonPost } from "../common/skeleton-post";
 import { Button } from "../ui/button";
 
 // export interface Post {
