@@ -24,7 +24,6 @@ export default function Loading() {
 
   return (
     <div className="min-h-screen pt-20 pb-10 px-4">
-      {/* Header skeleton */}
       <div className="fixed top-0 left-0 right-0 z-50 border-b border-border backdrop-blur-sm bg-background/80">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
@@ -40,7 +39,6 @@ export default function Loading() {
         </div>
       </div>
 
-      {/* Progress bar */}
       <div className="fixed top-16 left-0 w-full h-0.5 bg-muted z-50">
         <div
           className="h-full bg-primary transition-all duration-300 ease-out"
@@ -48,7 +46,6 @@ export default function Loading() {
         />
       </div>
 
-      {/* Main content skeletons */}
       <div className="max-w-2xl mx-auto space-y-6">
         {[1, 2, 3].map((item) => (
           <div
@@ -81,12 +78,10 @@ export default function Loading() {
           </div>
         ))}
 
-        {/* Loading spinner at bottom */}
         <div className="flex justify-center items-center py-8">
           <div className="h-10 w-10 rounded-full border-4 border-primary border-t-transparent animate-spin" />
         </div>
 
-        {/* Loading percentage */}
         <div className="text-center text-muted-foreground">
           <p>Loading your feed... {Math.round(progress)}%</p>
         </div>

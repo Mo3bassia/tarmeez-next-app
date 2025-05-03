@@ -1,0 +1,50 @@
+import { usersArraySchema } from "@/lib/schemas/users";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import Error from "next/error";
+
+function useUsers() {
+  const fetchUsers = async ({ pageParam }: { pageParam: number }) => {
+    const res = await fetch(
+      "https://tarmeezacademy.com/api/v1/users?limit=15&page=" + pageParam
+    );
+
+    const data = await res.json();
+    const validationResult = usersArraySchema.safeParse(data.data);
+    if (validationResult.success) {
+      return data;
+    } else {
+      throw new Error(
+        "Invalid data structure from API, please try again later."
+      );
+    }
+  };
+
+  const {
+    data,
+    error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+    isLoading,
+  } = useInfiniteQuery({
+    queryKey: ["Users"],
+    queryFn: fetchUsers,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) => {
+      return lastPage.meta.current_page + 1;
+    },
+  });
+
+  return {
+    data,
+    error,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+    isLoading,
+  };
+}
+
+export { useUsers };

@@ -26,7 +26,6 @@ export default function Register() {
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
-          {/* ...existing input fields... */}
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
               Full Name
@@ -72,7 +71,6 @@ export default function Register() {
             />
           </div>
 
-          {/* Updated Profile Picture Input */}
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="picture" className="text-right">
               Picture
