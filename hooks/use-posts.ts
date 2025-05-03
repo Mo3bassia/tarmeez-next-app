@@ -44,6 +44,7 @@ function usePosts() {
     hasNextPage,
     fetchNextPage,
     isLoading,
+    isFetching,
   };
 }
 

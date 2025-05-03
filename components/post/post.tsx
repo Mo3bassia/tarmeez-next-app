@@ -61,7 +61,7 @@ export default function PostProfile({ id }: { id: string }) {
             <p className="text-foreground/90 px-0.5">{post.body}</p>
           )}
 
-          {post.image && (
+          {post.image != "" && post.image.length && (
             <div className="relative aspect-video w-full rounded-lg overflow-hidden border border-border/20 mt-2">
               <ImagePost
                 src={post.image}

@@ -3,7 +3,6 @@ import { Post } from "./post";
 import { usePosts } from "@/hooks/use-posts";
 import { useCallback, useEffect, useRef } from "react";
 import { SkeletonPost } from "../common/skeleton-post";
-import { Button } from "../ui/button";
 
 // export interface Post {
 //   id: number;
@@ -36,8 +35,8 @@ export default function Posts() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    status,
-    isFetching,
+    // status,
+    // isFetching,
     isLoading,
   } = usePosts();
   useEffect(() => {

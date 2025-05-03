@@ -6,7 +6,6 @@ import { SkeletonUser } from "./skeleton-user";
 
 import { User as UserProps } from "@/lib/schemas/users";
 import { UsersError } from "./users-error";
-import { Button } from "../ui/button";
 
 export default function Posts() {
   const {
@@ -15,8 +14,8 @@ export default function Posts() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    status,
-    isFetching,
+    // status,
+    // isFetching,
     isLoading,
   } = useUsers();
   useEffect(() => {

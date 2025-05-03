@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { HomeIcon, RefreshCcw, AlertCircle } from "lucide-react";
@@ -27,7 +26,7 @@ export default function ErrorPage({
         </h1>
 
         <p className="max-w-[42rem] leading-normal text-muted-foreground sm:text-xl sm:leading-8">
-          We apologize for the inconvenience. The page you're looking for
+          We apologize for the inconvenience. The page you&apos;re looking for
           encountered an error.
         </p>
 

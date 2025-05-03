@@ -17,7 +17,7 @@ export const postSchema = z.object({
   title: z.string().nullable(),
   body: z.string(),
   author: authorSchema,
-  image: z.string().nullable(),
+  image: z.union([z.string(), z.object({})]),
   tags: z.array(z.string()),
   created_at: z.string(),
   comments_count: z.number(),

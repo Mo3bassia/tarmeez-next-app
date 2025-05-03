@@ -5,7 +5,7 @@ import Login from "./login";
 import Register from "./register";
 
 export default function LoginButtons() {
-  const [isLogined, setIsLogined] = useLocalStorage(false, "isAuthenticated");
+  const [isLogined] = useLocalStorage(false, "isAuthenticated");
   return (
     <div className="flex gap-1 items-center">
       {isLogined ? (
