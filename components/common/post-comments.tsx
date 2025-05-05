@@ -10,21 +10,46 @@ import {
 } from "@/components/ui/dialog";
 import { Post as PostProps } from "@/lib/schemas/post";
 import { Input } from "@/components/ui/input";
-import { MessageCircle } from "lucide-react";
+import { Loader2, MessageCircle } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProfileAvatar from "./profile-avatar";
 import { useCheckLogin } from "@/hooks/use-check-login";
+import { useAddComent } from "@/hooks/use-add-comment";
 
 export default function PostComments({ data }) {
   const searchParams = useSearchParams();
   const post: PostProps = data?.data;
+  const [commentContent, setCommentContent] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const { data: currentUser } = useCheckLogin();
+  const { mutate: addComment, isPending } = useAddComent();
 
   useEffect(() => {
     if (searchParams.get("comments")) setIsOpen(true);
   }, []);
+
+  function handleAddComment(e) {
+    e.preventDefault();
+
+    if (!commentContent.trim()) return;
+
+    const comment = {
+      body: commentContent,
+      token: currentUser.userData.token,
+      id: post.id,
+    };
+
+    addComment(comment, {
+      onSuccess: (result) => {
+        setCommentContent(""); // Clear input after successful submission
+        setIsOpen(false);
+      },
+      onError: (error) => {
+        // Could add error handling here
+      },
+    });
+  }
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -97,8 +122,11 @@ export default function PostComments({ data }) {
         </div>
 
         {currentUser?.userData?.user && (
-          <div className="pt-2">
-            <form className="flex items-center gap-2">
+          <div className="pt-2 border-t">
+            <form
+              className="flex items-center gap-2"
+              onSubmit={handleAddComment}
+            >
               <div className="h-8 w-8 rounded-full overflow-hidden flex-shrink-0">
                 <ProfileAvatar
                   iconSize={5}
@@ -117,9 +145,26 @@ export default function PostComments({ data }) {
                   alt={currentUser?.userData?.user.name}
                 />
               </div>
-              <Input placeholder="Write a comment..." className="flex-1" />
-              <Button type="submit" size="sm">
-                Send
+              <Input
+                placeholder="Write a comment..."
+                value={commentContent}
+                onChange={(e) => setCommentContent(e.currentTarget.value)}
+                className="flex-1"
+                disabled={isPending}
+              />
+              <Button
+                type="submit"
+                size="sm"
+                disabled={isPending || !commentContent.trim()}
+              >
+                {isPending ? (
+                  <>
+                    <Loader2 className="h-3 w-3 mr-1 animate-spin" />
+                    Sending...
+                  </>
+                ) : (
+                  "Send"
+                )}
               </Button>
             </form>
           </div>
