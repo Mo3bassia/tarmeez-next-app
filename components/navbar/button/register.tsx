@@ -12,7 +12,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useRegister } from "@/hooks/use-register";
-import { RegisterCredentials } from "@/lib/schemas/register";
 import { AlertCircle, ImageIcon, Loader2 } from "lucide-react";
 import { useRef, useState } from "react";
 
@@ -31,38 +30,30 @@ export default function Register() {
     e.preventDefault();
     setErrors(null);
 
-    const registerCredentials = {
-      name: nameVal,
-      username,
-      password,
-      email,
-      image: imageInput.current.files[0],
-    };
-    console.log(imageInput.current.files[0]);
-    if (!email) delete registerCredentials.email;
-    if (!imageInput.current.files[0]) delete registerCredentials.image;
+    const formData = new FormData();
+    formData.append("name", nameVal);
+    formData.append("username", username);
+    formData.append("password", password);
 
-    console.log(registerCredentials);
-
-    const check = RegisterCredentials.safeParse(registerCredentials);
-    if (!check.success) {
-      setErrors(
-        "Enter a valid username and at least 6 characters for password"
-      );
-    } else {
-      register(registerCredentials, {
-        onSuccess: (result) => {
-          setErrors(null);
-          setIsOpen(false);
-        },
-        onError: (error) => {
-          setErrors(
-            error.response?.data?.message ||
-              "Login failed. Please check your credentials."
-          );
-        },
-      });
+    if (email) {
+      formData.append("email", email);
     }
+    if (imageInput.current.files[0]) {
+      formData.append("image", imageInput.current.files[0]);
+    }
+
+    register(formData, {
+      onSuccess: (result) => {
+        setErrors(null);
+        setIsOpen(false);
+      },
+      onError: (error) => {
+        setErrors(
+          error.response?.data?.message ||
+            "Login failed. Please check your credentials."
+        );
+      },
+    });
   };
 
   return (
@@ -182,8 +173,15 @@ export default function Register() {
           </div>
 
           <DialogFooter>
-            <Button type="submit" className="w-full">
-              Create Account
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Creating Account...
+                </>
+              ) : (
+                "Create Account"
+              )}
             </Button>
           </DialogFooter>
         </form>

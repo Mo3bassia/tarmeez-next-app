@@ -2,11 +2,16 @@ import axios from "axios";
 
 export async function POST(request) {
   try {
-    const body = await request.json();
+    const formData = await request.formData();
 
     const response = await axios.post(
       "https://tarmeezacademy.com/api/v1/register",
-      body
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
     );
 
     const cookieOptions = {

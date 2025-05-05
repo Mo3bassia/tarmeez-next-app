@@ -50,7 +50,6 @@ export default function PostComments({ data }) {
         <div className="flex flex-col gap-3 max-h-[60vh] overflow-y-auto">
           {post.comments?.length > 0 ? (
             post.comments.map((comment, index) => {
-              console.log(index !== post.comments.length - 1);
               return (
                 <div
                   key={comment.id}

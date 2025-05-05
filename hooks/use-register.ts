@@ -4,8 +4,8 @@ import axios from "axios";
 export function useRegister() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (credentials) => {
-      const response = await axios.post("/api/register", credentials, {
+    mutationFn: async (formData) => {
+      const response = await axios.post("/api/register", formData, {
         withCredentials: true,
       });
       return response.data;
