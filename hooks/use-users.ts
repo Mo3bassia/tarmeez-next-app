@@ -24,9 +24,7 @@ function useUsers() {
     error,
     fetchNextPage,
     hasNextPage,
-    // isFetching,
     isFetchingNextPage,
-    // status,
     isLoading,
   } = useInfiniteQuery({
     queryKey: ["Users"],

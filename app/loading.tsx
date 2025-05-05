@@ -6,7 +6,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 export default function Loading() {
   const [progress, setProgress] = useState(0);
 
-  // Simulate loading progress
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress((prevProgress) => {
