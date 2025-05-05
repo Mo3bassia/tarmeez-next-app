@@ -13,6 +13,7 @@ import { Post as PostProps } from "@/lib/schemas/post";
 import PostError from "./post-error";
 import { usePost } from "@/hooks/use-post";
 import { SkeletonPost } from "../common/skeleton-post";
+import PostComments from "../common/post-comments";
 
 export default function PostProfile({ id }: { id: string }) {
   const { data, error, isLoading, isFetching } = usePost(id);
@@ -79,15 +80,9 @@ export default function PostProfile({ id }: { id: string }) {
         </CardContent>
 
         <CardFooter className="px-3 py-2 border-t border-border/20">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="gap-1.5 hover:bg-primary/5 hover:text-primary transition-colors text-muted-foreground px-2"
-          >
-            <MessageCircle className="w-4 h-4" />
-            <span className="font-medium">{post.comments_count}</span>
-            <span>Comments</span>
-          </Button>
+          <PostComments
+            data={data}
+          />
         </CardFooter>
       </Card>
     </div>

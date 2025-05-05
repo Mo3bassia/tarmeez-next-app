@@ -83,15 +83,17 @@ export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
           )}
         </CardContent>
         <CardFooter className="px-3 py-2 border-t border-border/20 flex justify-between">
-          <Button
-            variant="ghost"
-            size="sm"
-            className="gap-1.5 hover:bg-primary/5 hover:text-primary transition-colors text-muted-foreground px-2"
-          >
-            <MessageCircle className="w-4 h-4" />
-            <span className="font-medium">{comments_count}</span>
-            <span>Comments</span>
-          </Button>
+          <Link href={`/posts/${id}?comments=open`}>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="gap-1.5 hover:bg-primary/5 hover:text-primary transition-colors text-muted-foreground px-2"
+            >
+              <MessageCircle className="w-4 h-4" />
+              <span className="font-medium">{comments_count}</span>
+              <span>Comments</span>
+            </Button>
+          </Link>
 
           <Link href={`/posts/${id}`} className="flex items-center">
             <Button
