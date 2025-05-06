@@ -1,8 +1,8 @@
 import { z } from "zod";
 
-const LoginCredentials = z.object({
-  username: z.string(),
-  password: z.string().min(6),
+export const LoginCredentials = z.object({
+  username: z.string().min(1, "Username is required"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
 });
 
-export { LoginCredentials };
+export type LoginFormValues = z.infer<typeof LoginCredentials>;
