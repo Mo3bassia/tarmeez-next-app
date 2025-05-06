@@ -7,6 +7,8 @@
 ![React Query](https://img.shields.io/badge/React_Query-5.75.1-FF4154)
 ![Zod](https://img.shields.io/badge/Zod-3.24.3-blue)
 
+> A modern social media platform built with Next.js and TypeScript, featuring user authentication, posts management, comments, and infinite scrolling powered by Tarmeez Academy API.
+
 ## 🚀 Live Demo
 
 Experience the application live: [tarmeez-social-media.vercel.app](https://tarmeez-social-media.vercel.app)
@@ -56,28 +58,32 @@ This is a comprehensive social media platform built with Next.js, showcasing adv
 
 This project integrates with the [Tarmeez Academy Social Media API](https://documenter.getpostman.com/view/4696539/2s83zjqN3F#d3ca0bfa-e458-4b4a-b16b-86c9e0dd932d), implementing:
 
-- Authentication endpoints
-- User data retrieval
-- Posts CRUD operations
-- Comments functionality
-- Image uploads
+- Authentication endpoints (login, register, logout)
+- User data retrieval with profile details and statistics
+- Posts CRUD operations (create, read, update, delete)
+- Comments functionality with real-time updates
+- Image uploads for both posts and profile pictures
+- Infinite scrolling pagination for optimized performance
+- Error handling with meaningful user feedback
 
 ## 🙏 Special Thanks
 
-Special thanks to [Tarmeez Academy](https://tarmeezacademy.com) for providing the robust API that powers this application. Their well-documented API made it possible to create this comprehensive social media platform as a learning project.
+Special thanks to [Tarmeez Academy](https://tarmeezacademy.com) for providing the robust API that powers this application. Their well-documented API made it possible to create this comprehensive social media platform as a learning project. The academy's commitment to providing real-world learning resources has been invaluable for developing practical frontend skills with actual backend integration.
 
 ## 🛠️ Technologies Used
 
 - **Frontend**: Next.js 15, React 19, TypeScript 5
-- **State Management**: TanStack React Query 5.75.1
-- **Data Fetching**: Axios 1.9.0
+- **State Management**: TanStack React Query 5.75.1 for server state
+- **Data Fetching**: Axios 1.9.0 with custom hooks pattern
 - **Data Validation**: Zod 3.24.3 for schema validation and type safety
-- **Form Handling**: React hooks with validation
+- **Form Handling**: React hooks with client-side validation
 - **Styling**: TailwindCSS 4, CSS Variables, tailwind-merge, clsx
-- **UI Components**: Custom components with Radix UI primitives
-- **Authentication**: JWT token-based auth
-- **Deployment**: Vercel
-- **Development**: Turbopack for faster builds
+- **UI Components**: Custom components with Radix UI primitives (Dialog, Dropdown, Avatar)
+- **Authentication**: JWT token-based auth with secure HTTP-only cookies
+- **Image Handling**: Next.js Image component with optimizations
+- **Routing**: Next.js App Router with dynamic routes
+- **Deployment**: Vercel with continuous deployment
+- **Development**: Turbopack for faster builds and enhanced DX
 
 ## 🚀 Getting Started
 
@@ -106,11 +112,29 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## 📂 Project Structure
 
 - `/app`: Next.js app router pages and layouts
+  - `/api`: Backend API routes (login, register, posts, comments)
+  - `/posts`: Post-related pages including dynamic [id] routes
+  - `/users`: User profiles with dynamic [id] routes
+  - `page.tsx`: Homepage
+  - `layout.tsx`: Root layout with theme providers
+  - `loading.tsx`: Global loading UI
 - `/components`: Reusable UI components
+  - `/common`: Shared components (ProfileAvatar, ImagePost, etc.)
+  - `/navbar`: Navigation components and authentication UI
+  - `/posts`: Post-related components (PostList, PostItem, etc.)
+  - `/user`: User profile components
+  - `/ui`: UI library components (Button, Card, Dialog, etc.)
 - `/hooks`: Custom React hooks for data fetching and state
+  - `use-posts.ts`: Posts data fetching with React Query
+  - `use-users.ts`: Users data fetching
+  - `use-check-login.ts`: Authentication state
+  - `use-add-post.ts`: Post creation mutation
+  - `use-edit-post.ts`: Post editing mutation
+  - `use-delete-post.ts`: Post deletion mutation
 - `/lib`: Utility functions and type definitions
-- `/public`: Static assets
-- `/app/api`: API routes for secure backend communication
+  - `/schemas`: Zod schemas for type validation
+  - `utils.ts`: Helper functions
+- `/public`: Static assets and images
 
 ## 🔗 Links
 
