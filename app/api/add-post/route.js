@@ -2,7 +2,6 @@ import axios from "axios";
 
 export async function POST(request) {
   try {
-    // const body = await request.json();
     const formData = await request.formData();
 
     const response = await axios.post(

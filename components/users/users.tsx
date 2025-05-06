@@ -14,8 +14,6 @@ export default function Posts() {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
-    // status,
-    // isFetching,
     isLoading,
   } = useUsers();
   useEffect(() => {

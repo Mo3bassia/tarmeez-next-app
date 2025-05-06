@@ -12,18 +12,18 @@ import { Post as PostProps } from "@/lib/schemas/post";
 import { Input } from "@/components/ui/input";
 import { Loader2, MessageCircle } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import ProfileAvatar from "./profile-avatar";
+import { useEffect, useRef, useState } from "react";
+import ProfileAvatar from "../common/profile-avatar";
 import { useCheckLogin } from "@/hooks/use-check-login";
 import { useAddComent } from "@/hooks/use-add-comment";
 
 export default function PostComments({ data }) {
   const searchParams = useSearchParams();
   const post: PostProps = data?.data;
-  const [commentContent, setCommentContent] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const { data: currentUser } = useCheckLogin();
   const { mutate: addComment, isPending } = useAddComent();
+  const commentInput = useRef(null);
 
   useEffect(() => {
     if (searchParams.get("comments")) setIsOpen(true);
@@ -32,22 +32,17 @@ export default function PostComments({ data }) {
   function handleAddComment(e) {
     e.preventDefault();
 
-    if (!commentContent.trim()) return;
-
     const comment = {
-      body: commentContent,
+      body: commentInput.current.value,
       token: currentUser.userData.token,
       id: post.id,
     };
 
     addComment(comment, {
       onSuccess: (result) => {
-        setCommentContent(""); // Clear input after successful submission
         setIsOpen(false);
       },
-      onError: (error) => {
-        // Could add error handling here
-      },
+      onError: (error) => {},
     });
   }
 
@@ -147,16 +142,11 @@ export default function PostComments({ data }) {
               </div>
               <Input
                 placeholder="Write a comment..."
-                value={commentContent}
-                onChange={(e) => setCommentContent(e.currentTarget.value)}
                 className="flex-1"
                 disabled={isPending}
+                ref={commentInput}
               />
-              <Button
-                type="submit"
-                size="sm"
-                disabled={isPending || !commentContent.trim()}
-              >
+              <Button type="submit" size="sm" disabled={isPending}>
                 {isPending ? (
                   <>
                     <Loader2 className="h-3 w-3 mr-1 animate-spin" />

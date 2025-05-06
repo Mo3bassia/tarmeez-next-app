@@ -13,7 +13,7 @@ import { Post as PostProps } from "@/lib/schemas/post";
 import PostError from "./post-error";
 import { usePost } from "@/hooks/use-post";
 import { SkeletonPost } from "../common/skeleton-post";
-import PostComments from "../common/post-comments";
+import PostComments from "./post-comments";
 
 export default function PostProfile({ id }: { id: string }) {
   const { data, error, isLoading, isFetching } = usePost(id);
@@ -80,9 +80,7 @@ export default function PostProfile({ id }: { id: string }) {
         </CardContent>
 
         <CardFooter className="px-3 py-2 border-t border-border/20">
-          <PostComments
-            data={data}
-          />
+          <PostComments data={data} />
         </CardFooter>
       </Card>
     </div>
