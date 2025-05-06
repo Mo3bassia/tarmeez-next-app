@@ -1,93 +1,252 @@
 "use client";
-import { User } from "./user";
 import { useUsers } from "@/hooks/use-users";
-import { useCallback, useEffect, useRef } from "react";
-import { SkeletonUser } from "./skeleton-user";
-
+import { useState } from "react";
 import { User as UserProps } from "@/lib/schemas/users";
 import { UsersError } from "./users-error";
+import { TablePagination } from "@/components/common/table-pagination";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
+import { MoreHorizontal, Eye, Home } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableHead,
+  TableBody,
+  TableCell,
+} from "@/components/ui/table";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
-export default function Posts() {
+export default function Users() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const currentPage = Number(searchParams.get("page") || "1");
+  const [pageSize, setPageSize] = useState(10);
+
   const {
     data,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
     isLoading,
-  } = useUsers();
-  useEffect(() => {
-    if (error) {
-      return <UsersError error={error} reset={() => fetchNextPage()} />;
-    }
-  }, [error, data]);
+    isError,
+    error,
+    isPending,
+    isRefetching,
+    totalPages,
+  } = useUsers({
+    page: currentPage,
+    pageSize: pageSize,
+  });
 
-  const observer = useRef(null);
-  const lastElementRef = useCallback(
-    (node) => {
-      if (isLoading) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetchingNextPage) {
-          fetchNextPage();
-        }
-      });
-      if (node) observer.current.observe(node);
-    },
-    [isLoading, hasNextPage, isFetchingNextPage, fetchNextPage]
-  );
+  const handlePageSizeChange = (size: number) => {
+    setPageSize(size);
+
+    const params = new URLSearchParams(searchParams);
+    params.set("page", "1");
+    params.set("size", size.toString());
+    router.push(`${pathname}?${params.toString()}`);
+  };
 
   if (isLoading) {
     return (
-      <div className="mt-20 grid grid-cols-1 items-center justify-center space-y-5">
-        <SkeletonUser />
-        <SkeletonUser />
-        <SkeletonUser />
-        <SkeletonUser />
+      <div className="mt-20">
+        <div className="mb-6">
+          <div className="flex items-center justify-between">
+            <h1 className="text-2xl font-bold tracking-tight">Users List</h1>
+            <div className="text-sm text-muted-foreground">
+              <Skeleton className="h-4 w-24" />
+            </div>
+          </div>
+
+          <Breadcrumb className="mt-4">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="/" className="flex items-center">
+                    <Home className="h-3.5 w-3.5 mr-1" />
+                    Home
+                  </Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Users</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+
+        <div className="bg-background overflow-hidden rounded-md border">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-muted/30">
+                <TableHead className="text-center">ID</TableHead>
+                <TableHead className="text-center">Name</TableHead>
+                <TableHead className="text-center">Username</TableHead>
+                <TableHead className="text-center">Email</TableHead>
+                <TableHead className="text-center">Posts Count</TableHead>
+                <TableHead className="text-center">Comments Count</TableHead>
+                <TableHead className="text-center"></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {Array(5)
+                .fill(0)
+                .map((_, i) => (
+                  <TableRow key={i}>
+                    {Array(7)
+                      .fill(0)
+                      .map((_, j) => (
+                        <TableCell key={j} className="text-center">
+                          <Skeleton className="h-4 w-3/4 mx-auto" />
+                        </TableCell>
+                      ))}
+                  </TableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </div>
       </div>
     );
   }
 
-  if (error) {
-    return <UsersError error={error} reset={() => fetchNextPage()} />;
+  if (isError) {
+    return <UsersError error={error} reset={() => router.refresh()} />;
   }
 
   return (
     <div className="mt-20">
-      {data?.pages.map((page, pageIndex) =>
-        page.data.map((user: UserProps, postIndex: number) => {
-          const isLastPage = pageIndex === data.pages.length - 1;
-          const isLastPost = postIndex === page.data.length - 1;
-          const isLastElement = isLastPage && isLastPost;
-
-          return (
-            <User
-              key={user.id}
-              user={user}
-              ref={isLastElement ? lastElementRef : null}
-            />
-          );
-        })
-      )}
-      {hasNextPage && (
-        <div className="flex flex-col items-center justify-center py-6">
-          {isFetchingNextPage ? (
-            <div className="flex flex-col items-center space-y-2">
-              <div className="h-7 w-7 animate-spin rounded-full border-2 border-primary border-t-transparent"></div>
-              <p className="text-sm text-muted-foreground">
-                Loading more users...
-              </p>
-            </div>
-          ) : (
-            <p className="text-sm text-muted-foreground">Scroll for more</p>
-          )}
+      <div className="mb-6">
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl font-bold tracking-tight">Users List</h1>
+          <div className="text-sm text-muted-foreground">
+            Total: {data?.meta.pagination.total || 0} users
+          </div>
         </div>
-      )}
 
-      {!hasNextPage && !isLoading && data?.pages[0]?.data.length > 0 && (
-        <div className="text-center py-6 text-muted-foreground text-sm">
-          You&apos;ve reached the end!
-        </div>
+        <Breadcrumb className="mt-4">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink asChild>
+                <Link href="/" className="flex items-center">
+                  <Home className="h-3.5 w-3.5 mr-1" />
+                  Home
+                </Link>
+              </BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Users</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+      </div>
+
+      <div className="bg-background overflow-hidden rounded-md border">
+        <Table>
+          <TableHeader>
+            <TableRow className="bg-muted/30">
+              <TableHead className="text-center">ID</TableHead>
+              <TableHead className="text-center">Name</TableHead>
+              <TableHead className="text-center">Username</TableHead>
+              <TableHead className="text-center">Email</TableHead>
+              <TableHead className="text-center">Posts Count</TableHead>
+              <TableHead className="text-center">Comments Count</TableHead>
+              <TableHead className="text-center"></TableHead>
+            </TableRow>
+          </TableHeader>
+
+          <TableBody>
+            {!data?.data || data.data.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={7} className="text-center">
+                  No users found.
+                </TableCell>
+              </TableRow>
+            ) : (
+              data.data.map((user: UserProps) => {
+                return (
+                  <TableRow key={user.id}>
+                    <TableCell className="text-center">
+                      <Link
+                        href={`/users/${user.id}`}
+                        className="text-primary hover:underline"
+                      >
+                        {user.id}
+                      </Link>
+                    </TableCell>
+                    <TableCell className="text-center">{user.name}</TableCell>
+                    <TableCell className="text-center">
+                      {user.username}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {user.email ? (
+                        <Badge variant="outline">{user.email}</Badge>
+                      ) : (
+                        "-"
+                      )}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {user.posts_count || 0}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {user.comments_count || 0}
+                    </TableCell>
+                    <TableCell className="text-center">
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button variant="ghost" className="h-8 w-8 p-0">
+                            <span className="sr-only">Open menu</span>
+                            <MoreHorizontal className="h-4 w-4" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                          <DropdownMenuLabel className="text-primary">
+                            Actions
+                          </DropdownMenuLabel>
+                          <DropdownMenuItem asChild>
+                            <Link href={`/users/${user.id}`}>
+                              <Eye className="mr-2 h-4 w-4" />
+                              View Profile
+                            </Link>
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
+                    </TableCell>
+                  </TableRow>
+                );
+              })
+            )}
+          </TableBody>
+        </Table>
+      </div>
+
+      {/* Pagination */}
+      {data?.data && data.data.length > 0 && (
+        <TablePagination
+          pageSize={pageSize}
+          isPending={isPending || isRefetching}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          setPageSize={handlePageSizeChange}
+        />
       )}
     </div>
   );

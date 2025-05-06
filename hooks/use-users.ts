@@ -1,48 +1,58 @@
 import { usersArraySchema } from "@/lib/schemas/users";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import Error from "next/error";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 
-function useUsers() {
-  const fetchUsers = async ({ pageParam }: { pageParam: number }) => {
-    const res = await fetch(
-      "https://tarmeezacademy.com/api/v1/users?limit=15&page=" + pageParam
-    );
+interface UseUsersProps {
+  page?: number;
+  pageSize?: number;
+}
 
-    const data = await res.json();
+function useUsers({ page = 1, pageSize = 10 }: UseUsersProps = {}) {
+  const fetchUsers = async () => {
+    let url = `https://tarmeezacademy.com/api/v1/users?limit=${pageSize}&page=${page}`;
+
+    const response = await axios.get(url);
+    const data = response.data;
+
     const validationResult = usersArraySchema.safeParse(data.data);
-    if (validationResult.success) {
-      return data;
-    } else {
+    if (!validationResult.success) {
       throw new Error(
         "Invalid data structure from API, please try again later."
       );
     }
+
+    return {
+      data: data.data,
+      meta: {
+        pagination: {
+          page: data.meta.current_page,
+          pageSize: pageSize,
+          pageCount: data.meta.last_page,
+          total: data.meta.total,
+        },
+      },
+    };
   };
 
-  const {
-    data,
-    error,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-  } = useInfiniteQuery({
-    queryKey: ["Users"],
-    queryFn: fetchUsers,
-    initialPageParam: 1,
-    refetchInterval: 60 * 1000,
-    getNextPageParam: (lastPage, pages) => {
-      return lastPage.meta.current_page + 1;
-    },
-  });
+  const { data, isLoading, isError, error, refetch, isPending, isRefetching } =
+    useQuery({
+      queryKey: ["users", page, pageSize],
+      queryFn: fetchUsers,
+      refetchOnWindowFocus: false,
+    });
 
   return {
     data,
-    error,
-    isFetchingNextPage,
-    hasNextPage,
-    fetchNextPage,
     isLoading,
+    isError,
+    error,
+    refetch,
+    isPending,
+    isRefetching,
+    currentPage: page,
+    pageSize,
+    totalPages: data?.meta.pagination.pageCount || 0,
+    totalItems: data?.meta.pagination.total || 0,
   };
 }
 

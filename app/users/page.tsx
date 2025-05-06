@@ -1,4 +1,4 @@
-import Users from "@/components/users/users.tsx";
+import Users from "@/components/users/users";
 
 export default function UsersPage() {
   return (
