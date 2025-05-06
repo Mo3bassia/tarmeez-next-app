@@ -1,7 +1,7 @@
 "use client";
 import { Post } from "./post";
 import { usePosts } from "@/hooks/use-posts";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 import { SkeletonPost } from "../common/skeleton-post";
 
 import { Post as PostProps } from "@/lib/schemas/posts";
@@ -16,11 +16,6 @@ export default function Posts() {
     isFetchingNextPage,
     isLoading,
   } = usePosts();
-  useEffect(() => {
-    if (error) {
-      return <PostsError error={error} reset={() => fetchNextPage()} />;
-    }
-  }, [error, data]);
 
   const observer = useRef(null);
   const lastElementRef = useCallback(
@@ -52,23 +47,42 @@ export default function Posts() {
     return <PostsError error={error} reset={() => fetchNextPage()} />;
   }
 
+  const hasAnyPosts = data?.pages?.some(
+    (page) => page.data && page.data.length > 0
+  );
+
+  if (!hasAnyPosts && !isLoading) {
+    return (
+      <div className="mt-20 flex flex-col items-center justify-center py-10">
+        <div className="text-5xl mb-4">📭</div>
+        <h3 className="text-xl font-medium mb-2">No Posts Available</h3>
+        <p className="text-center text-muted-foreground">
+          There are no posts to display at the moment.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="mt-20">
       {data?.pages.map((page, pageIndex) =>
-        page.data.map((post: PostProps, postIndex: number) => {
-          const isLastPage = pageIndex === data.pages.length - 1;
-          const isLastPost = postIndex === page.data.length - 1;
-          const isLastElement = isLastPage && isLastPost;
+        page.data && page.data.length > 0
+          ? page.data.map((post: PostProps, postIndex: number) => {
+              const isLastPage = pageIndex === data.pages.length - 1;
+              const isLastPost = postIndex === page.data.length - 1;
+              const isLastElement = isLastPage && isLastPost;
 
-          return (
-            <Post
-              key={post.id}
-              post={post}
-              ref={isLastElement ? lastElementRef : null}
-            />
-          );
-        })
+              return (
+                <Post
+                  key={post.id}
+                  post={post}
+                  ref={isLastElement ? lastElementRef : null}
+                />
+              );
+            })
+          : null
       )}
+
       {hasNextPage && (
         <div className="flex flex-col items-center justify-center py-6">
           {isFetchingNextPage ? (
@@ -84,7 +98,7 @@ export default function Posts() {
         </div>
       )}
 
-      {!hasNextPage && !isLoading && data?.pages[0]?.data.length > 0 && (
+      {!hasNextPage && !isLoading && data?.pages[0]?.data?.length > 0 && (
         <div className="text-center py-6 text-muted-foreground text-sm">
           You&apos;ve reached the end!
         </div>
