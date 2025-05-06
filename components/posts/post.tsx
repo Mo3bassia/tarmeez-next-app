@@ -17,6 +17,8 @@ import { useCheckLogin } from "@/hooks/use-check-login";
 import { Pencil, Trash2 } from "lucide-react";
 import { useDeletePost } from "@/hooks/use-delete-post";
 import { Loader2 } from "lucide-react";
+import { useEditPost } from "@/hooks/use-edit-post";
+import EditPostDialog from "./edit-post-dialog";
 
 export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
   (
@@ -24,7 +26,8 @@ export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
     ref
   ) => {
     const { data } = useCheckLogin();
-    const { mutate: deletePost, isPending } = useDeletePost(id);
+    const { mutate: deletePost, isPending: isDeletePending } =
+      useDeletePost(id);
 
     function handleDelete(e) {
       e.preventDefault();
@@ -114,23 +117,20 @@ export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
           <div className="flex items-center">
             {data?.userData?.user?.id === author.id && (
               <>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="text-xs text-muted-foreground hover:text-blue-500 transition-colors"
-                  title="Edit post"
-                >
-                  <Pencil className="h-4 w-4" />
-                </Button>
+                <EditPostDialog
+                  initialBody={body}
+                  postId={id}
+                  token={data.userData.token}
+                />
                 <Button
                   variant="ghost"
                   size="sm"
                   className="text-xs text-muted-foreground hover:text-red-500 transition-colors"
                   title="Delete post"
                   onClick={handleDelete}
-                  disabled={isPending}
+                  disabled={isDeletePending}
                 >
-                  {isPending ? (
+                  {isDeletePending ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
                   ) : (
                     <Trash2 className="h-4 w-4" />
