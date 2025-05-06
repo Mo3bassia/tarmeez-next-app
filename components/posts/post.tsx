@@ -1,5 +1,5 @@
+"use client";
 import { forwardRef } from "react";
-
 import Link from "next/link";
 import {
   Card,
@@ -13,12 +13,26 @@ import { MessageCircle, Calendar, ExternalLink } from "lucide-react";
 import { Post as PostProps } from "@/lib/schemas/posts";
 import ImagePost from "../common/image-post";
 import ProfileAvatar from "../common/profile-avatar";
+import { useCheckLogin } from "@/hooks/use-check-login";
+import { Pencil, Trash2 } from "lucide-react";
+import { useDeletePost } from "@/hooks/use-delete-post";
+import { Loader2 } from "lucide-react";
 
 export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
   (
     { post: { id, title, body, image, author, created_at, comments_count } },
     ref
   ) => {
+    const { data } = useCheckLogin();
+    const { mutate: deletePost, isPending } = useDeletePost(id);
+
+    function handleDelete(e) {
+      e.preventDefault();
+      deletePost({
+        token: data.userData.token,
+      });
+    }
+
     return (
       <Card
         className="w-full max-w-2xl mx-auto mb-5 border border-border/40 hover:border-border/80 transition-colors duration-200"
@@ -82,29 +96,60 @@ export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
             </Link>
           )}
         </CardContent>
-        <CardFooter className="px-3 py-2 border-t border-border/20 flex justify-between">
-          <Link href={`/posts/${id}?comments=open`}>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="gap-1.5 hover:bg-primary/5 hover:text-primary transition-colors text-muted-foreground px-2"
-            >
-              <MessageCircle className="w-4 h-4" />
-              <span className="font-medium">{comments_count}</span>
-              <span>Comments</span>
-            </Button>
-          </Link>
+        <CardFooter className="px-3 py-2 border-t border-border/20 flex flex-wrap justify-between">
+          <div className="flex items-center">
+            <Link href={`/posts/${id}?comments=open`}>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="gap-1.5 hover:bg-primary/5 hover:text-primary transition-colors text-muted-foreground px-2"
+              >
+                <MessageCircle className="w-4 h-4" />
+                <span className="font-medium">{comments_count}</span>
+                <span>Comments</span>
+              </Button>
+            </Link>
+          </div>
 
-          <Link href={`/posts/${id}`} className="flex items-center">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-xs text-muted-foreground hover:text-primary transition-colors gap-1"
-            >
-              <span>View Post</span>
-              <ExternalLink className="h-3 w-3" />
-            </Button>
-          </Link>
+          <div className="flex items-center">
+            {data?.userData?.user?.id === author.id && (
+              <>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-xs text-muted-foreground hover:text-blue-500 transition-colors"
+                  title="Edit post"
+                >
+                  <Pencil className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-xs text-muted-foreground hover:text-red-500 transition-colors"
+                  title="Delete post"
+                  onClick={handleDelete}
+                  disabled={isPending}
+                >
+                  {isPending ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Trash2 className="h-4 w-4" />
+                  )}
+                </Button>
+              </>
+            )}
+
+            <Link href={`/posts/${id}`} className="flex items-center">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-xs text-muted-foreground hover:text-primary transition-colors gap-1"
+              >
+                <span>View Post</span>
+                <ExternalLink className="h-3 w-3" />
+              </Button>
+            </Link>
+          </div>
         </CardFooter>
       </Card>
     );
