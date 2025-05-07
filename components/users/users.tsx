@@ -25,14 +25,7 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/table";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import { Breadcrumbs } from "@/components/breadcrumbs";
 
 export default function Users() {
   const searchParams = useSearchParams();
@@ -75,22 +68,20 @@ export default function Users() {
             </div>
           </div>
 
-          <Breadcrumb className="mt-4">
-            <BreadcrumbList>
-              <BreadcrumbItem>
-                <BreadcrumbLink asChild>
-                  <Link href="/" className="flex items-center">
-                    <Home className="h-3.5 w-3.5 mr-1" />
-                    Home
-                  </Link>
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Users</BreadcrumbPage>
-              </BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
+          <Breadcrumbs
+            items={[
+              {
+                title: "",
+                href: "/",
+                icon: <Home className="h-3.5 w-3.5" />,
+              },
+              {
+                title: "Users",
+                disabled: true,
+              },
+            ]}
+            className="mt-4"
+          />
         </div>
 
         <div className="bg-background overflow-hidden rounded-md border">
@@ -141,22 +132,20 @@ export default function Users() {
           </div>
         </div>
 
-        <Breadcrumb className="mt-4">
-          <BreadcrumbList>
-            <BreadcrumbItem>
-              <BreadcrumbLink asChild>
-                <Link href="/" className="flex items-center">
-                  <Home className="h-3.5 w-3.5 mr-1" />
-                  Home
-                </Link>
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-            <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>Users</BreadcrumbPage>
-            </BreadcrumbItem>
-          </BreadcrumbList>
-        </Breadcrumb>
+        <Breadcrumbs
+          items={[
+            {
+              title: "",
+              href: "/",
+              icon: <Home className="h-3.5 w-3.5" />,
+            },
+            {
+              title: "Users",
+              disabled: true,
+            },
+          ]}
+          className="mt-4"
+        />
       </div>
 
       <div className="bg-background overflow-hidden rounded-md border">

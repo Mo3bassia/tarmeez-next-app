@@ -25,7 +25,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Container>
+            <Container className="mb-5">
               <Navbar />
               {children}
             </Container>

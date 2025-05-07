@@ -34,7 +34,7 @@ export default function Posts() {
 
   if (isLoading) {
     return (
-      <div className="mt-20 grid grid-cols-1 items-center justify-center space-y-5">
+      <div className="grid grid-cols-1 items-center justify-center space-y-5">
         <SkeletonPost />
         <SkeletonPost />
         <SkeletonPost />
@@ -53,7 +53,7 @@ export default function Posts() {
 
   if (!hasAnyPosts && !isLoading) {
     return (
-      <div className="mt-20 flex flex-col items-center justify-center py-10">
+      <div className=" flex flex-col items-center justify-center py-10">
         <div className="text-5xl mb-4">📭</div>
         <h3 className="text-xl font-medium mb-2">No Posts Available</h3>
         <p className="text-center text-muted-foreground">
@@ -64,7 +64,7 @@ export default function Posts() {
   }
 
   return (
-    <div className="mt-20">
+    <div className="">
       {data?.pages.map((page, pageIndex) =>
         page.data && page.data.length > 0
           ? page.data.map((post: PostProps, postIndex: number) => {
