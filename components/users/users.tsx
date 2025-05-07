@@ -176,7 +176,7 @@ export default function Users() {
                     <TableCell className="text-center">
                       <Link
                         href={`/users/${user.id}`}
-                        className="text-primary hover:underline"
+                        className="text-blue-500 dark:text-blue-400 font-medium hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
                       >
                         {user.id}
                       </Link>
