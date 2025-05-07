@@ -4,7 +4,7 @@ import { useState } from "react";
 import { User as UserProps } from "@/lib/schemas/users";
 import { UsersError } from "./users-error";
 import { TablePagination } from "@/components/common/table-pagination";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
@@ -26,11 +26,11 @@ import {
   TableCell,
 } from "@/components/ui/table";
 import { Breadcrumbs } from "@/components/breadcrumbs";
+import { TableSkeleton } from "@/components/common/table-skeleton";
 
 export default function Users() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const pathname = usePathname();
 
   const currentPage = Number(searchParams.get("page") || "1");
   const [pageSize, setPageSize] = useState(10);
@@ -75,36 +75,18 @@ export default function Users() {
           />
         </div>
 
-        <div className="bg-background overflow-hidden rounded-md border">
-          <Table>
-            <TableHeader>
-              <TableRow className="bg-muted/30">
-                <TableHead className="text-center">ID</TableHead>
-                <TableHead className="text-center">Name</TableHead>
-                <TableHead className="text-center">Username</TableHead>
-                <TableHead className="text-center">Email</TableHead>
-                <TableHead className="text-center">Posts Count</TableHead>
-                <TableHead className="text-center">Comments Count</TableHead>
-                <TableHead className="text-center"></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {Array(5)
-                .fill(0)
-                .map((_, i) => (
-                  <TableRow key={i}>
-                    {Array(7)
-                      .fill(0)
-                      .map((_, j) => (
-                        <TableCell key={j} className="text-center">
-                          <Skeleton className="h-4 w-3/4 mx-auto" />
-                        </TableCell>
-                      ))}
-                  </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-        </div>
+        <TableSkeleton
+          headers={[
+            "ID",
+            "Name",
+            "Username",
+            "Email",
+            "Posts Count",
+            "Comments Count",
+            "",
+          ]}
+          rowCount={5}
+        />
       </div>
     );
   }
