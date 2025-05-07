@@ -12,10 +12,21 @@ import { Post as PostProps } from "@/lib/schemas/post";
 import { Input } from "@/components/ui/input";
 import { Loader2, MessageCircle } from "lucide-react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import ProfileAvatar from "../common/profile-avatar";
 import { useCheckLogin } from "@/hooks/use-check-login";
 import { useAddComent } from "@/hooks/use-add-comment";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+
+// Define comment schema
+const commentSchema = z.object({
+  body: z.string().min(1, "Comment cannot be empty"),
+});
+
+type CommentFormValues = z.infer<typeof commentSchema>;
 
 export default function PostComments({ data }) {
   const searchParams = useSearchParams();
@@ -23,17 +34,21 @@ export default function PostComments({ data }) {
   const [isOpen, setIsOpen] = useState(false);
   const { data: currentUser } = useCheckLogin();
   const { mutate: addComment, isPending } = useAddComent();
-  const commentInput = useRef(null);
+
+  const form = useForm<CommentFormValues>({
+    resolver: zodResolver(commentSchema),
+    defaultValues: {
+      body: "",
+    },
+  });
 
   useEffect(() => {
     if (searchParams.get("comments")) setIsOpen(true);
   }, []);
 
-  function handleAddComment(e) {
-    e.preventDefault();
-
+  function handleAddComment(values: CommentFormValues) {
     const comment = {
-      body: commentInput.current.value,
+      body: values.body,
       token: currentUser.userData.token,
       id: post.id,
     };
@@ -41,6 +56,7 @@ export default function PostComments({ data }) {
     addComment(comment, {
       onSuccess: (result) => {
         setIsOpen(false);
+        form.reset(); // Reset form after successful submission
       },
       onError: (error) => {},
     });
@@ -118,45 +134,59 @@ export default function PostComments({ data }) {
 
         {currentUser?.userData?.user && (
           <div className="pt-2 border-t">
-            <form
-              className="flex items-center gap-2"
-              onSubmit={handleAddComment}
-            >
-              <div className="h-8 w-8 rounded-full overflow-hidden flex-shrink-0">
-                <ProfileAvatar
-                  iconSize={5}
-                  className="h-8 w-8 rounded-full ring-2 ring-primary/10 flex items-center justify-center"
-                  condition={
-                    typeof currentUser?.userData?.user.profile_image ===
-                      "string" &&
-                    currentUser?.userData?.user.profile_image !== ""
-                  }
-                  src={
-                    typeof currentUser?.userData?.user.profile_image ===
-                    "string"
-                      ? currentUser?.userData?.user.profile_image
-                      : ""
-                  }
-                  alt={currentUser?.userData?.user.name}
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(handleAddComment)}
+                className="flex items-center gap-2"
+              >
+                <div className="h-8 w-8 rounded-full overflow-hidden flex-shrink-0">
+                  <ProfileAvatar
+                    iconSize={5}
+                    className="h-8 w-8 rounded-full ring-2 ring-primary/10 flex items-center justify-center"
+                    condition={
+                      typeof currentUser?.userData?.user.profile_image ===
+                        "string" &&
+                      currentUser?.userData?.user.profile_image !== ""
+                    }
+                    src={
+                      typeof currentUser?.userData?.user.profile_image ===
+                      "string"
+                        ? currentUser?.userData?.user.profile_image
+                        : ""
+                    }
+                    alt={currentUser?.userData?.user.name}
+                  />
+                </div>
+
+                <FormField
+                  control={form.control}
+                  name="body"
+                  render={({ field }) => (
+                    <FormItem className="flex-1 m-0">
+                      <FormControl>
+                        <Input
+                          placeholder="Write a comment..."
+                          className="flex-1"
+                          disabled={isPending}
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
                 />
-              </div>
-              <Input
-                placeholder="Write a comment..."
-                className="flex-1"
-                disabled={isPending}
-                ref={commentInput}
-              />
-              <Button type="submit" size="sm" disabled={isPending}>
-                {isPending ? (
-                  <>
-                    <Loader2 className="h-3 w-3 mr-1 animate-spin" />
-                    Sending...
-                  </>
-                ) : (
-                  "Send"
-                )}
-              </Button>
-            </form>
+
+                <Button type="submit" size="sm" disabled={isPending}>
+                  {isPending ? (
+                    <>
+                      <Loader2 className="h-3 w-3 mr-1 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    "Send"
+                  )}
+                </Button>
+              </form>
+            </Form>
           </div>
         )}
       </DialogContent>
