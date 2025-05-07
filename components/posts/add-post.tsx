@@ -26,6 +26,7 @@ export function AddPost() {
   const [title, setTitle] = useState("");
   const [caption, setCaption] = useState("");
   const [imageName, setImageName] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const { mutate: addPost, isPending } = useAddPost();
 
@@ -37,8 +38,21 @@ export function AddPost() {
 
   const removeImage = () => {
     setImageName("");
+    setSelectedFile(null);
     if (imageInput.current) {
       imageInput.current.value = "";
+    }
+  };
+
+  const handleFileChange = () => {
+    if (
+      imageInput.current &&
+      imageInput.current.files &&
+      imageInput.current.files[0]
+    ) {
+      const file = imageInput.current.files[0];
+      setImageName(file.name);
+      setSelectedFile(file);
     }
   };
 
@@ -49,11 +63,18 @@ export function AddPost() {
     formData.append("body", caption);
     formData.append("title", title);
 
-    if (imageInput?.current?.files[0]) {
-      formData.append("image", imageInput.current.files[0]);
-      setImageName(imageInput.current.files[0].name);
+    if (selectedFile) {
+      formData.append("image", selectedFile);
     }
+
     formData.append("token", data.userData.token);
+
+    console.log("Form Data Contents:");
+    for (let pair of formData.entries()) {
+      console.log(
+        pair[0] + ": " + (pair[1] instanceof File ? pair[1].name : pair[1])
+      );
+    }
 
     addPost(formData, {
       onSuccess: (result) => {
@@ -153,6 +174,7 @@ export function AddPost() {
                       ref={imageInput}
                       className="hidden"
                       disabled={isPending}
+                      onChange={handleFileChange}
                     />
                   </label>
                 ) : (

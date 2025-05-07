@@ -2,6 +2,7 @@ import { Container } from "@/components/container";
 import Posts from "@/components/posts/posts";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import { Home, FileText } from "lucide-react";
+import { AddPost } from "@/components/posts/add-post";
 
 export default function PostsPage() {
   return (
@@ -22,6 +23,7 @@ export default function PostsPage() {
           className="mb-2"
         />
       </div>
+      <AddPost />
       <Posts />
     </Container>
   );
