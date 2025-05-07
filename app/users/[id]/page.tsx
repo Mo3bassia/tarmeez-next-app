@@ -1,7 +1,7 @@
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import User from "@/components/user/user";
+import User from "@/components/user";
 import { Home, Users } from "lucide-react";
 
 export default async function UserPage({

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
-import Navbar from "@/components/navbar/navbar";
+import Navbar from "@/components/navbar";
 import { Container } from "@/components/container";
 import ReactQueryProvider from "@/components/react-query-provider";
 
