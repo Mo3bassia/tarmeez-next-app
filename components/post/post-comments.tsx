@@ -21,7 +21,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 
-// Define comment schema
 const commentSchema = z.object({
   body: z.string().min(1, "Comment cannot be empty"),
 });
@@ -56,7 +55,7 @@ export default function PostComments({ data }) {
     addComment(comment, {
       onSuccess: (result) => {
         setIsOpen(false);
-        form.reset(); // Reset form after successful submission
+        form.reset();
       },
       onError: (error) => {},
     });
@@ -89,8 +88,8 @@ export default function PostComments({ data }) {
               return (
                 <div
                   key={comment.id}
-                  className={`flex gap-3 pb-3 ${
-                    index !== post.comments.length - 1 ? "border-b" : ""
+                  className={`flex gap-3  ${
+                    index !== post.comments.length - 1 ? "border-b pb-3" : ""
                   }`}
                 >
                   <div className="flex-shrink-0">
@@ -133,7 +132,7 @@ export default function PostComments({ data }) {
         </div>
 
         {currentUser?.userData?.user && (
-          <div className="pt-2 border-t">
+          <div className="pt-7 border-t">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(handleAddComment)}
