@@ -16,6 +16,25 @@ import { AlertCircle, ImageIcon, Loader2, PlusIcon, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { useAddPost } from "@/hooks/use-add-post";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+
+// Define post schema
+const postSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  body: z.string().min(1, "Caption is required"),
+});
+
+type PostFormValues = z.infer<typeof postSchema>;
 
 export function AddPost() {
   const { data } = useCheckLogin();
@@ -23,14 +42,21 @@ export function AddPost() {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setErrors] = useState(null);
 
-  const [title, setTitle] = useState("");
-  const [caption, setCaption] = useState("");
+  // File handling state
   const [imageName, setImageName] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+  const imageInput = useRef(null);
 
   const { mutate: addPost, isPending } = useAddPost();
 
-  const imageInput = useRef(null);
+  // Initialize form
+  const form = useForm<PostFormValues>({
+    resolver: zodResolver(postSchema),
+    defaultValues: {
+      title: "",
+      body: "",
+    },
+  });
 
   useEffect(() => {
     setIsClient(true);
@@ -56,12 +82,10 @@ export function AddPost() {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  const onSubmit = (values: PostFormValues) => {
     const formData = new FormData();
-    formData.append("body", caption);
-    formData.append("title", title);
+    formData.append("body", values.body);
+    formData.append("title", values.title);
 
     if (selectedFile) {
       formData.append("image", selectedFile);
@@ -69,30 +93,24 @@ export function AddPost() {
 
     formData.append("token", data.userData.token);
 
-    console.log("Form Data Contents:");
-    for (let pair of formData.entries()) {
-      console.log(
-        pair[0] + ": " + (pair[1] instanceof File ? pair[1].name : pair[1])
-      );
-    }
-
     addPost(formData, {
-      onSuccess: (result) => {
+      onSuccess: () => {
         setErrors(null);
         setIsOpen(false);
+        form.reset();
+        setImageName("");
+        setSelectedFile(null);
       },
       onError: (error) => {
         setErrors(
           error.response?.data?.message ||
-            "Login failed. Please check your credentials."
+            "Failed to create post. Please try again."
         );
       },
     });
   };
 
-  if (!isClient) return null;
-
-  if (!data?.userData || typeof window === "undefined") {
+  if (!isClient || !data?.userData || typeof window === "undefined") {
     return null;
   }
 
@@ -109,50 +127,62 @@ export function AddPost() {
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
-        <form onSubmit={handleSubmit}>
-          <DialogHeader>
-            <DialogTitle>Create New Post</DialogTitle>
-            <DialogDescription>
-              Share your thoughts with the community. Click post when you're
-              done.
-            </DialogDescription>
+        <DialogHeader>
+          <DialogTitle>Create New Post</DialogTitle>
+          <DialogDescription>
+            Share your thoughts with the community. Click post when you're done.
+          </DialogDescription>
 
-            {error && (
-              <div className="w-full mt-2 col-span-4 bg-destructive/10 text-destructive text-sm p-3 rounded-md flex items-start">
-                <AlertCircle className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
-                <p>{error}</p>
-              </div>
-            )}
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="title" className="text-right">
-                Title
-              </Label>
-              <Input
-                id="title"
-                placeholder="Enter post title"
-                className="col-span-3"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                disabled={isPending}
-                required
-              />
+          {error && (
+            <div className="w-full mt-2 bg-destructive/10 text-destructive text-sm p-3 rounded-md flex items-start">
+              <AlertCircle className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
+              <p>{error}</p>
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="caption" className="text-right">
-                Caption
-              </Label>
-              <Textarea
-                id="caption"
-                placeholder="What's on your mind?"
-                className="col-span-3 min-h-[100px]"
-                value={caption}
-                onChange={(e) => setCaption(e.target.value)}
-                disabled={isPending}
-                required
-              />
-            </div>
+          )}
+        </DialogHeader>
+
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-4 py-2"
+          >
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-4 items-center gap-4">
+                  <FormLabel className="text-right">Title</FormLabel>
+                  <FormControl className="col-span-3">
+                    <Input
+                      placeholder="Enter post title"
+                      {...field}
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormMessage className="col-span-3 col-start-2" />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="body"
+              render={({ field }) => (
+                <FormItem className="grid grid-cols-4 items-center gap-4">
+                  <FormLabel className="text-right">Caption</FormLabel>
+                  <FormControl className="col-span-3">
+                    <Textarea
+                      placeholder="What's on your mind?"
+                      className="min-h-[100px]"
+                      {...field}
+                      disabled={isPending}
+                    />
+                  </FormControl>
+                  <FormMessage className="col-span-3 col-start-2" />
+                </FormItem>
+              )}
+            />
+
             <div className="grid grid-cols-4 items-center gap-4">
               <Label htmlFor="image" className="text-right">
                 Image
@@ -202,20 +232,21 @@ export function AddPost() {
                 )}
               </div>
             </div>
-          </div>
-          <DialogFooter>
-            <Button type="submit" disabled={isPending} className="w-full">
-              {isPending ? (
-                <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                  Creating Post...
-                </>
-              ) : (
-                "Create Post"
-              )}
-            </Button>
-          </DialogFooter>
-        </form>
+
+            <DialogFooter>
+              <Button type="submit" disabled={isPending} className="w-full">
+                {isPending ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Creating Post...
+                  </>
+                ) : (
+                  "Create Post"
+                )}
+              </Button>
+            </DialogFooter>
+          </form>
+        </Form>
       </DialogContent>
     </Dialog>
   );
