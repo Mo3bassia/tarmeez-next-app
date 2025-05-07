@@ -48,15 +48,6 @@ export default function Users() {
     pageSize: pageSize,
   });
 
-  const handlePageSizeChange = (size: number) => {
-    setPageSize(size);
-
-    const params = new URLSearchParams(searchParams);
-    params.set("page", "1");
-    params.set("size", size.toString());
-    router.push(`${pathname}?${params.toString()}`);
-  };
-
   if (isLoading) {
     return (
       <div className="mt-20">
@@ -234,7 +225,7 @@ export default function Users() {
           isPending={isPending || isRefetching}
           currentPage={currentPage}
           totalPages={totalPages}
-          setPageSize={handlePageSizeChange}
+          setPageSize={setPageSize}
         />
       )}
     </div>

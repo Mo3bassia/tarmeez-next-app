@@ -16,7 +16,7 @@ import {
   ChevronsRight,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 interface TablePaginationProps {
   pageSize: number;
@@ -35,11 +35,21 @@ export const TablePagination = ({
 }: TablePaginationProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   const createPageUrl = (pageNum: number) => {
     const params = new URLSearchParams(searchParams);
     params.set("page", pageNum.toString());
     return `${pathname}?${params.toString()}`;
+  };
+
+  const handlePageSizeChange = (size: number) => {
+    setPageSize(size);
+
+    const params = new URLSearchParams(searchParams);
+    params.set("page", "1");
+    params.set("size", size.toString());
+    router.push(`${pathname}?${params.toString()}`);
   };
 
   return (
@@ -49,7 +59,7 @@ export const TablePagination = ({
         <Select
           value={`${pageSize}`}
           onValueChange={(value) => {
-            setPageSize(+value);
+            handlePageSizeChange(+value);
           }}
           disabled={isPending}
         >
