@@ -1,13 +1,12 @@
 "use client";
-import Login from "./login";
-import Register from "./register";
+import LoginDialog from "../../auth/login-dialog";
+import RegisterDialog from "../../auth/register-dialog";
 import { useCheckLogin } from "@/hooks/use-check-login";
-import Logout from "./logout";
+import Logout from "../../auth/logout";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 import ProfileAvatar from "@/components/common/profile-avatar";
 import Link from "next/link";
-import { useQueryClient } from "@tanstack/react-query";
 
 export default function LoginButtons() {
   const { data, isLoading } = useCheckLogin();
@@ -56,8 +55,8 @@ export default function LoginButtons() {
         <Logout>Logout</Logout>
       ) : (
         <>
-          <Login />
-          <Register />
+          <LoginDialog />
+          <RegisterDialog />
         </>
       )}
     </div>
