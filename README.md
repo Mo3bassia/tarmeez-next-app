@@ -111,121 +111,115 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## 📂 Project Structure
 
-- `/app`: Next.js app router pages and layouts
-  |-- favicon.ico
-  |-- globals.css
-  |-- layout.tsx
-  |-- loading.tsx
-  |-- page.tsx
-  |-- api
-  |-- add-post
-  |-- route.js
-  |-- check-login
-  |-- route.js
-  |-- add-comment
-  |-- route.js
-  |-- delete-post
-  |-- route.js
-  |-- edit-post
-  |-- route.js
-  |-- login
-  |-- route.js
-  |-- logout
-  |-- route.js
-  |-- register
-  |-- route.js
-  |-- posts
-  |-- error.tsx
-  |-- page.tsx
-  |-- [id]
-  |-- page.tsx
-  |-- users
-  |-- page.tsx
-  |-- [id]
-  |-- page.tsx
+```txt
+/app                             # Next.js App Router
+├── favicon.ico
+├── globals.css
+├── layout.tsx                   # Root layout component
+├── loading.tsx                  # Global loading UI
+├── page.tsx                     # Homepage
+├── api/                         # API route handlers
+│   ├── add-post/
+│   ├── check-login/
+│   ├── add-comment/
+│   ├── delete-post/
+│   ├── edit-post/
+│   ├── login/
+│   ├── logout/
+│   └── register/
+├── posts/                       # Posts pages
+│   ├── error.tsx
+│   ├── page.tsx
+│   └── [id]/                    # Dynamic route
+│       └── page.tsx
+└── users/                       # Users pages
+    ├── page.tsx
+    └── [id]/                    # Dynamic route
+        └── page.tsx
 
-- `/components`: Reusable UI components
-  |-- back-button.tsx
-  |-- container.tsx
-  |-- react-query-provider.tsx
-  |-- theme-provider.tsx
-  |-- common
-  |-- image-post.tsx
-  |-- profile-avatar.tsx
-  |-- skeleton-post.tsx
-  |-- table-pagination.tsx
-  |-- post
-  |-- post-comments.tsx
-  |-- post-error.tsx
-  |-- post.tsx
-  |-- posts
-  |-- add-post.tsx
-  |-- edit-post-dialog.tsx
-  |-- post.tsx
-  |-- posts-error.tsx
-  |-- posts.tsx
-  |-- ui
-  |-- avatar.tsx
-  |-- badge.tsx
-  |-- breadcrumb.tsx
-  |-- button.tsx
-  |-- card.tsx
-  |-- dialog.tsx
-  |-- dropdown-menu.tsx
-  |-- form.tsx
-  |-- input.tsx
-  |-- label.tsx
-  |-- select.tsx
-  |-- separator.tsx
-  |-- skeleton.tsx
-  |-- table.tsx
-  |-- tabs.tsx
-  |-- textarea.tsx
-  |-- user
-  |-- skeleton-user.tsx
-  |-- user-error.tsx
-  |-- user.tsx
-  |-- navbar
-  |-- dropdown-toggle-menu.tsx
-  |-- logo.tsx
-  |-- navbar.tsx
-  |-- button
-  |-- login-buttons.tsx
-  |-- login.tsx
-  |-- logout.tsx
-  |-- navbar-buttons.tsx
-  |-- register.tsx
-  |-- users
-  |-- skeleton-user.tsx
-  |-- user.tsx
-  |-- users-error.tsx
-  |-- users.tsx
+/components                      # Reusable UI components
+├── back-button.tsx
+├── container.tsx
+├── react-query-provider.tsx
+├── theme-provider.tsx
+├── common/                      # Shared components
+│   ├── image-post.tsx
+│   ├── profile-avatar.tsx
+│   ├── skeleton-post.tsx
+│   └── table-pagination.tsx
+├── post/                        # Post components
+│   ├── post-comments.tsx
+│   ├── post-error.tsx
+│   └── post.tsx
+├── posts/                       # Posts components
+│   ├── add-post.tsx
+│   ├── edit-post-dialog.tsx
+│   ├── post.tsx
+│   ├── posts-error.tsx
+│   └── posts.tsx
+├── ui/                          # UI library components
+│   ├── avatar.tsx
+│   ├── badge.tsx
+│   ├── breadcrumb.tsx
+│   ├── button.tsx
+│   ├── card.tsx
+│   ├── dialog.tsx
+│   ├── dropdown-menu.tsx
+│   ├── form.tsx
+│   ├── input.tsx
+│   ├── label.tsx
+│   ├── select.tsx
+│   ├── separator.tsx
+│   ├── skeleton.tsx
+│   ├── table.tsx
+│   ├── tabs.tsx
+│   └── textarea.tsx
+├── user/                        # User components
+│   ├── skeleton-user.tsx
+│   ├── user-error.tsx
+│   └── user.tsx
+├── navbar/                      # Navigation components
+│   ├── dropdown-toggle-menu.tsx
+│   ├── logo.tsx
+│   ├── navbar.tsx
+│   └── button/
+│       ├── login-buttons.tsx
+│       ├── login.tsx
+│       ├── logout.tsx
+│       ├── navbar-buttons.tsx
+│       └── register.tsx
+└── users/                       # Users components
+    ├── skeleton-user.tsx
+    ├── user.tsx
+    ├── users-error.tsx
+    └── users.tsx
 
-- `/hooks`: Custom React hooks for data fetching and state
-  |-- use-add-comment.ts
-  |-- use-add-post.ts
-  |-- use-check-login.ts
-  |-- use-delete-post.ts
-  |-- use-edit-post.ts
-  |-- use-login.ts
-  |-- use-logout.ts
-  |-- use-post.ts
-  |-- use-posts.ts
-  |-- use-register.ts
-  |-- use-user.ts
-  |-- use-users.ts
-  |-- useLocalStorage.js
+/hooks                           # Custom React hooks
+├── use-add-comment.ts
+├── use-add-post.ts
+├── use-check-login.ts
+├── use-delete-post.ts
+├── use-edit-post.ts
+├── use-login.ts
+├── use-logout.ts
+├── use-post.ts
+├── use-posts.ts
+├── use-register.ts
+├── use-user.ts
+├── use-users.ts
+└── useLocalStorage.js
 
-- `/lib`: Utility functions and type definitions
-  |-- utils.ts
-  |-- schemas
-  |-- login.ts
-  |-- post.ts
-  |-- posts.ts
-  |-- user.ts
-  |-- users.ts
+/lib                             # Utility functions
+├── utils.ts                     # Helper functions
+└── schemas/                     # Zod schemas for validation
+    ├── login.ts
+    ├── post.ts
+    ├── posts.ts
+    ├── user.ts
+    └── users.ts
 
-- `/public`: Static assets and images
+/public                          # Static assets
+```
 
 ## 🔗 Links
 
