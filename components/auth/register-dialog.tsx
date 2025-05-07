@@ -10,13 +10,25 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useState } from "react";
-import { useRegister } from "@/hooks/use-register";
 import { Loader2 } from "lucide-react";
+import { useRegister } from "@/hooks/use-register";
 import RegisterForm from "./register-form";
 
-export default function RegisterDialog() {
+interface RegisterDialogProps {
+  isOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
+
+export default function RegisterDialog({
+  isOpen,
+  onOpenChange,
+}: RegisterDialogProps = {}) {
   const [error, setError] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+
+  // Use external state if provided, otherwise use internal state
+  const open = isOpen !== undefined ? isOpen : internalOpen;
+  const setOpen = onOpenChange || setInternalOpen;
 
   const { mutate: register, isPending: isLoading } = useRegister();
 
@@ -26,7 +38,7 @@ export default function RegisterDialog() {
     register(formData, {
       onSuccess: () => {
         setError(null);
-        setIsOpen(false);
+        setOpen(false);
       },
       onError: (error: any) => {
         setError(
@@ -38,7 +50,7 @@ export default function RegisterDialog() {
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" disabled={isLoading}>
           {isLoading ? (

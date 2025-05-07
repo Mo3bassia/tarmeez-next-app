@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import { User } from "lucide-react";
 import Image from "next/image";
@@ -17,36 +17,32 @@ export default function ProfileAvatar({
   className: string;
   iconSize: number;
 }) {
-  const image = useRef(null);
   const [isError, setIsError] = useState(false);
+
   const fallbackContent = (
     <AvatarFallback className="flex justify-center items-center">
-      <User className={`w-${iconSize} h-${iconSize}  text-foreground/50`} />
+      <User className={`w-${iconSize} h-${iconSize} text-foreground/50`} />
     </AvatarFallback>
   );
-  function handleError() {
-    if (image.current) {
-      image.current.style.display = "none";
-    }
-    setIsError(true);
+
+  // Show fallback when condition is false or we have an error
+  if (!condition || isError) {
+    return <Avatar className={className}>{fallbackContent}</Avatar>;
   }
+
+  // When condition is true and no error has occurred
   return (
     <Avatar className={className}>
-      {condition ? (
-        <>
-          <Image
-            src={src}
-            alt={alt}
-            width={1000}
-            height={1000}
-            ref={image}
-            className="rounded-full object-cover w-full h-full"
-            onError={handleError}
-          />
-        </>
-      ) : (
-        fallbackContent
-      )}
+      <Image
+        src={src}
+        alt={alt}
+        width={100}
+        height={100}
+        unoptimized
+        className="rounded-full object-cover w-full h-full"
+        onError={() => setIsError(true)}
+      />
+      {/* Render fallback if image fails to load */}
       {isError && fallbackContent}
     </Avatar>
   );

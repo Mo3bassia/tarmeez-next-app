@@ -14,29 +14,23 @@ import { LoginFormValues } from "@/lib/schemas/login";
 import { Loader2 } from "lucide-react";
 import { useLogin } from "@/hooks/use-login";
 import LoginForm from "./login-form";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
 
-export default function LoginDialog() {
+interface LoginDialogProps {
+  isOpen?: boolean;
+  onOpenChange?: (open: boolean) => void;
+}
+
+export default function LoginDialog({
+  isOpen,
+  onOpenChange,
+}: LoginDialogProps) {
   const [error, setError] = useState<string | null>(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const queryClient = useQueryClient();
+  const [internalOpen, setInternalOpen] = useState(false);
 
-  //   const { mutate: login, isPending: isLoading } = useLogin();
-  const { mutate: login, isPending: isLoading } = useMutation({
-    mutationFn: async (credentials) => {
-      const response = await axios.post("/api/login", credentials, {
-        withCredentials: true,
-      });
-      return response.data;
-    },
-    onError: (error) => {
-      console.error("Login error:", error);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["check-login"] });
-    },
-  });
+  const open = isOpen !== undefined ? isOpen : internalOpen;
+  const setOpen = onOpenChange || setInternalOpen;
+
+  const { mutate: login, isPending: isLoading } = useLogin();
 
   function onSubmit(data: LoginFormValues) {
     setError(null);
@@ -44,7 +38,7 @@ export default function LoginDialog() {
     login(data, {
       onSuccess: () => {
         setError(null);
-        setIsOpen(false);
+        setOpen(false);
       },
       onError: (error: any) => {
         setError(
@@ -56,7 +50,7 @@ export default function LoginDialog() {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" disabled={isLoading}>
           {isLoading ? (
