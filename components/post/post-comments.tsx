@@ -8,6 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Post as PostProps } from "@/lib/schemas/post";
 import { Input } from "@/components/ui/input";
 import { Loader2, MessageCircle } from "lucide-react";
@@ -82,54 +83,58 @@ export default function PostComments({ data }) {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="flex flex-col gap-3 max-h-[60vh] overflow-y-auto">
-          {post.comments?.length > 0 ? (
-            post.comments.map((comment, index) => {
-              return (
-                <div
-                  key={comment.id}
-                  className={`flex gap-3  ${
-                    index !== post.comments.length - 1 ? "border-b pb-3" : ""
-                  }`}
-                >
-                  <div className="flex-shrink-0">
-                    <div className="h-9 w-9 rounded-full overflow-hidden">
-                      <ProfileAvatar
-                        iconSize={5}
-                        className="h-8 w-8 rounded-full ring-2 ring-primary/10 flex items-center justify-center"
-                        condition={
-                          typeof comment.author.profile_image === "string" &&
-                          comment.author.profile_image !== ""
-                        }
-                        src={
-                          typeof comment.author.profile_image === "string"
-                            ? comment.author.profile_image
-                            : ""
-                        }
-                        alt={comment.author.name}
-                      />
+        <ScrollArea className="h-[60vh] pr-4">
+          <div className="flex flex-col gap-3">
+            {post.comments?.length > 0 ? (
+              post.comments.map((comment, index) => {
+                return (
+                  <div
+                    key={comment.id}
+                    className={`flex gap-3 ${
+                      index !== post.comments.length - 1
+                        ? "border-b pb-3 mb-3"
+                        : ""
+                    }`}
+                  >
+                    <div className="flex-shrink-0">
+                      <div className="h-9 w-9 rounded-full overflow-hidden">
+                        <ProfileAvatar
+                          iconSize={5}
+                          className="h-8 w-8 rounded-full ring-2 ring-primary/10 flex items-center justify-center"
+                          condition={
+                            typeof comment.author.profile_image === "string" &&
+                            comment.author.profile_image !== ""
+                          }
+                          src={
+                            typeof comment.author.profile_image === "string"
+                              ? comment.author.profile_image
+                              : ""
+                          }
+                          alt={comment.author.name}
+                        />
+                      </div>
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <h4 className="font-semibold text-sm">
+                          {comment.author.name}
+                        </h4>
+                        <span className="text-xs text-muted-foreground">
+                          @{comment.author.username}
+                        </span>
+                      </div>
+                      <p className="text-sm mt-1">{comment.body}</p>
                     </div>
                   </div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-semibold text-sm">
-                        {comment.author.name}
-                      </h4>
-                      <span className="text-xs text-muted-foreground">
-                        @{comment.author.username}
-                      </span>
-                    </div>
-                    <p className="text-sm mt-1">{comment.body}</p>
-                  </div>
-                </div>
-              );
-            })
-          ) : (
-            <div className="text-center py-6 text-muted-foreground">
-              No comments yet. Be the first to share your thoughts!
-            </div>
-          )}
-        </div>
+                );
+              })
+            ) : (
+              <div className="text-center py-6 text-muted-foreground">
+                No comments yet. Be the first to share your thoughts!
+              </div>
+            )}
+          </div>
+        </ScrollArea>
 
         {currentUser?.userData?.user && (
           <div className="pt-7 border-t">
