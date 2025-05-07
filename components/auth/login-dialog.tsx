@@ -14,12 +14,29 @@ import { LoginFormValues } from "@/lib/schemas/login";
 import { Loader2 } from "lucide-react";
 import { useLogin } from "@/hooks/use-login";
 import LoginForm from "./login-form";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
 export default function LoginDialog() {
   const [error, setError] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
+  const queryClient = useQueryClient();
 
-  const { mutate: login, isPending: isLoading } = useLogin();
+  //   const { mutate: login, isPending: isLoading } = useLogin();
+  const { mutate: login, isPending: isLoading } = useMutation({
+    mutationFn: async (credentials) => {
+      const response = await axios.post("/api/login", credentials, {
+        withCredentials: true,
+      });
+      return response.data;
+    },
+    onError: (error) => {
+      console.error("Login error:", error);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["check-login"] });
+    },
+  });
 
   function onSubmit(data: LoginFormValues) {
     setError(null);
