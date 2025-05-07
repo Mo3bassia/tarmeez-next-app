@@ -112,28 +112,119 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## 📂 Project Structure
 
 - `/app`: Next.js app router pages and layouts
-  - `/api`: Backend API routes (login, register, posts, comments)
-  - `/posts`: Post-related pages including dynamic [id] routes
-  - `/users`: User profiles with dynamic [id] routes
-  - `page.tsx`: Homepage
-  - `layout.tsx`: Root layout with theme providers
-  - `loading.tsx`: Global loading UI
+  |-- favicon.ico
+  |-- globals.css
+  |-- layout.tsx
+  |-- loading.tsx
+  |-- page.tsx
+  |-- api
+  |-- add-post
+  |-- route.js
+  |-- check-login
+  |-- route.js
+  |-- add-comment
+  |-- route.js
+  |-- delete-post
+  |-- route.js
+  |-- edit-post
+  |-- route.js
+  |-- login
+  |-- route.js
+  |-- logout
+  |-- route.js
+  |-- register
+  |-- route.js
+  |-- posts
+  |-- error.tsx
+  |-- page.tsx
+  |-- [id]
+  |-- page.tsx
+  |-- users
+  |-- page.tsx
+  |-- [id]
+  |-- page.tsx
+
 - `/components`: Reusable UI components
-  - `/common`: Shared components (ProfileAvatar, ImagePost, etc.)
-  - `/navbar`: Navigation components and authentication UI
-  - `/posts`: Post-related components (PostList, PostItem, etc.)
-  - `/user`: User profile components
-  - `/ui`: UI library components (Button, Card, Dialog, etc.)
+  |-- back-button.tsx
+  |-- container.tsx
+  |-- react-query-provider.tsx
+  |-- theme-provider.tsx
+  |-- common
+  |-- image-post.tsx
+  |-- profile-avatar.tsx
+  |-- skeleton-post.tsx
+  |-- table-pagination.tsx
+  |-- post
+  |-- post-comments.tsx
+  |-- post-error.tsx
+  |-- post.tsx
+  |-- posts
+  |-- add-post.tsx
+  |-- edit-post-dialog.tsx
+  |-- post.tsx
+  |-- posts-error.tsx
+  |-- posts.tsx
+  |-- ui
+  |-- avatar.tsx
+  |-- badge.tsx
+  |-- breadcrumb.tsx
+  |-- button.tsx
+  |-- card.tsx
+  |-- dialog.tsx
+  |-- dropdown-menu.tsx
+  |-- form.tsx
+  |-- input.tsx
+  |-- label.tsx
+  |-- select.tsx
+  |-- separator.tsx
+  |-- skeleton.tsx
+  |-- table.tsx
+  |-- tabs.tsx
+  |-- textarea.tsx
+  |-- user
+  |-- skeleton-user.tsx
+  |-- user-error.tsx
+  |-- user.tsx
+  |-- navbar
+  |-- dropdown-toggle-menu.tsx
+  |-- logo.tsx
+  |-- navbar.tsx
+  |-- button
+  |-- login-buttons.tsx
+  |-- login.tsx
+  |-- logout.tsx
+  |-- navbar-buttons.tsx
+  |-- register.tsx
+  |-- users
+  |-- skeleton-user.tsx
+  |-- user.tsx
+  |-- users-error.tsx
+  |-- users.tsx
+
 - `/hooks`: Custom React hooks for data fetching and state
-  - `use-posts.ts`: Posts data fetching with React Query
-  - `use-users.ts`: Users data fetching
-  - `use-check-login.ts`: Authentication state
-  - `use-add-post.ts`: Post creation mutation
-  - `use-edit-post.ts`: Post editing mutation
-  - `use-delete-post.ts`: Post deletion mutation
+  |-- use-add-comment.ts
+  |-- use-add-post.ts
+  |-- use-check-login.ts
+  |-- use-delete-post.ts
+  |-- use-edit-post.ts
+  |-- use-login.ts
+  |-- use-logout.ts
+  |-- use-post.ts
+  |-- use-posts.ts
+  |-- use-register.ts
+  |-- use-user.ts
+  |-- use-users.ts
+  |-- useLocalStorage.js
+
 - `/lib`: Utility functions and type definitions
-  - `/schemas`: Zod schemas for type validation
-  - `utils.ts`: Helper functions
+  |-- utils.ts
+  |-- schemas
+  |-- login.ts
+  |-- post.ts
+  |-- posts.ts
+  |-- user.ts
+  |-- users.ts
+
 - `/public`: Static assets and images
 
 ## 🔗 Links
