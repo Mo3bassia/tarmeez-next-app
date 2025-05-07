@@ -5,7 +5,7 @@ import { DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, ImageIcon, Loader2 } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -39,6 +39,7 @@ export default function RegisterForm({
   error,
 }: RegisterFormProps) {
   const imageInput = useRef<HTMLInputElement>(null);
+  const [selectedFileName, setSelectedFileName] = useState<string | null>(null);
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -66,6 +67,11 @@ export default function RegisterForm({
     }
 
     onSubmit(formData);
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setSelectedFileName(file ? file.name : null);
   };
 
   return (
@@ -173,7 +179,7 @@ export default function RegisterForm({
               >
                 <ImageIcon className="w-5 h-5 text-gray-500" />
                 <span className="text-sm text-gray-600">
-                  Choose profile picture
+                  {selectedFileName || "Choose profile picture"}
                 </span>
                 <Input
                   id="picture"
@@ -182,6 +188,7 @@ export default function RegisterForm({
                   className="hidden"
                   ref={imageInput}
                   disabled={isLoading}
+                  onChange={handleFileChange}
                 />
               </label>
             </div>
