@@ -1,7 +1,7 @@
 "use client";
 import { useUsers } from "@/hooks/use-users";
 import { useState } from "react";
-import { User as UserProps } from "@/lib/schemas/users";
+import { User as UserProps } from "@/lib/validations/users";
 import { UsersError } from "./users-error";
 import { TablePagination } from "@/components/common/table-pagination";
 import { useSearchParams, useRouter } from "next/navigation";

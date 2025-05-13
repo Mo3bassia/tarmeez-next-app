@@ -10,7 +10,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Mail, FileText, MessageSquare } from "lucide-react";
 import ProfileAvatar from "../common/profile-avatar";
-import { User as UserProps } from "@/lib/schemas/user";
+import { User as UserProps } from "@/lib/validations/user";
 
 export function User({ user, ref }: { user: UserProps }) {
   const {

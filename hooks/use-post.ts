@@ -1,4 +1,4 @@
-import { postSchema } from "@/lib/schemas/post";
+import { postSchema } from "@/lib/validations/post";
 import { useQuery } from "@tanstack/react-query";
 
 function usePost(id: string) {

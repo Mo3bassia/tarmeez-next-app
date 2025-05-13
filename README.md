@@ -211,7 +211,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 /lib                             # Utility functions
 ├── utils.ts                     # Helper functions
-└── schemas/                     # Zod schemas for validation
+└── validations/                     # Zod schemas for validation
     ├── login.ts
     ├── post.ts
     ├── posts.ts

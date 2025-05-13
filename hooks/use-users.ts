@@ -1,4 +1,4 @@
-import { usersArraySchema } from "@/lib/schemas/users";
+import { usersArraySchema } from "@/lib/validations/users";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 

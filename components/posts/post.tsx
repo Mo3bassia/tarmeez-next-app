@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Calendar, ExternalLink } from "lucide-react";
 
-import { Post as PostProps } from "@/lib/schemas/posts";
+import { Post as PostProps } from "@/lib/validations/posts";
 import ImagePost from "../common/image-post";
 import ProfileAvatar from "../common/profile-avatar";
 import { useCheckLogin } from "@/hooks/use-check-login";

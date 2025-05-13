@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useState } from "react";
-import { LoginFormValues } from "@/lib/schemas/login";
+import { LoginFormValues } from "@/lib/validations/login";
 import { Loader2 } from "lucide-react";
 import { useLogin } from "@/hooks/use-login";
 import LoginForm from "./login-form";

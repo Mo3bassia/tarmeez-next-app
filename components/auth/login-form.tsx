@@ -1,6 +1,6 @@
 "use client";
 
-import { LoginCredentials, LoginFormValues } from "@/lib/schemas/login";
+import { LoginCredentials, LoginFormValues } from "@/lib/validations/login";
 import AuthForm from "./auth-form";
 
 interface LoginFormProps {

@@ -1,4 +1,4 @@
-import { postsArraySchema } from "@/lib/schemas/posts";
+import { postsArraySchema } from "@/lib/validations/posts";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import Error from "next/error";
 

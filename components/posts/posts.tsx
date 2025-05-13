@@ -4,7 +4,7 @@ import { usePosts } from "@/hooks/use-posts";
 import { useCallback, useRef } from "react";
 import { SkeletonPost } from "../common/skeleton-post";
 
-import { Post as PostProps } from "@/lib/schemas/posts";
+import { Post as PostProps } from "@/lib/validations/posts";
 import { PostsError } from "./posts-error";
 
 export default function Posts() {

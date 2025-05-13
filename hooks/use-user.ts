@@ -1,4 +1,4 @@
-import { userSchema } from "@/lib/schemas/user";
+import { userSchema } from "@/lib/validations/user";
 import { useQuery } from "@tanstack/react-query";
 
 function useUser(id: string) {

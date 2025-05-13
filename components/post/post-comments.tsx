@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Post as PostProps } from "@/lib/schemas/post";
+import { Post as PostProps } from "@/lib/validations/post";
 import { Input } from "@/components/ui/input";
 import { Loader2, MessageCircle } from "lucide-react";
 import { useSearchParams } from "next/navigation";

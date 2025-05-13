@@ -9,7 +9,7 @@ import { Calendar, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ProfileAvatar from "../common/profile-avatar";
 import ImagePost from "../common/image-post";
-import { Post as PostProps } from "@/lib/schemas/post";
+import { Post as PostProps } from "@/lib/validations/post";
 import PostError from "./post-error";
 import { usePost } from "@/hooks/use-post";
 import { SkeletonPost } from "../common/skeleton-post";

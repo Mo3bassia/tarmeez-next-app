@@ -3,7 +3,7 @@ import { useUser } from "@/hooks/use-user";
 import { Card, CardHeader } from "@/components/ui/card";
 import { User, Mail, FileText, MessageSquare } from "lucide-react";
 import ProfileAvatar from "../common/profile-avatar";
-import { User as UserProps } from "@/lib/schemas/user";
+import { User as UserProps } from "@/lib/validations/user";
 import UserError from "./user-error";
 import SkeletonUser from "./skeleton-user";
 
