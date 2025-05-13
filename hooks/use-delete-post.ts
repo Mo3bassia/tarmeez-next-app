@@ -5,12 +5,11 @@ export function useDeletePost(postId: string | number) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ token }: { token: string }) => {
+    mutationFn: async () => {
       try {
         const response = await axios.delete("/api/delete-post", {
           data: {
             id: postId,
-            token,
           },
         });
 

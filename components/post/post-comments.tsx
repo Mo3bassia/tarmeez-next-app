@@ -49,7 +49,6 @@ export default function PostComments({ data }) {
   function handleAddComment(values: CommentFormValues) {
     const comment = {
       body: values.body,
-      token: currentUser.userData.token,
       id: post.id,
     };
 

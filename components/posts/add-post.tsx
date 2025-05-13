@@ -91,8 +91,6 @@ export function AddPost() {
       formData.append("image", selectedFile);
     }
 
-    formData.append("token", data.userData.token);
-
     addPost(formData, {
       onSuccess: () => {
         setErrors(null);

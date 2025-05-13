@@ -1,17 +1,5 @@
 import { z } from "zod";
-
-const authorSchema = z.object({
-  id: z.number(),
-  profile_image: z.union([z.string(), z.object({})]),
-  is_fake: z.boolean(),
-  username: z.string(),
-  name: z.string(),
-  email: z.string().nullable(),
-  email_verified_at: z.string().nullable(),
-  remember_token: z.string().nullable(),
-  created_at: z.string(),
-  updated_at: z.string(),
-});
+import { authorSchema, type Author } from "./author";
 
 export const postsSchema = z.object({
   id: z.number(),
@@ -27,4 +15,4 @@ export const postsSchema = z.object({
 export const postsArraySchema = z.array(postsSchema);
 
 export type Post = z.infer<typeof postsSchema>;
-export type Author = z.infer<typeof authorSchema>;
+export type { Author };

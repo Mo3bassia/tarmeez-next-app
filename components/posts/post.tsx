@@ -31,9 +31,7 @@ export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
 
     function handleDelete(e) {
       e.preventDefault();
-      deletePost({
-        token: data.userData.token,
-      });
+      deletePost();
     }
 
     return (
@@ -117,11 +115,7 @@ export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
           <div className="flex items-center">
             {data?.userData?.user?.id === author.id && (
               <>
-                <EditPostDialog
-                  initialBody={body}
-                  postId={id}
-                  token={data.userData.token}
-                />
+                <EditPostDialog initialBody={body} postId={id} />
                 <Button
                   variant="ghost"
                   size="sm"

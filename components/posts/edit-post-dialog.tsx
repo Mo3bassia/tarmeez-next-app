@@ -15,7 +15,7 @@ import { useState } from "react";
 import { useEditPost } from "@/hooks/use-edit-post";
 import { Loader2, Pencil } from "lucide-react";
 
-export default function EditPostDialog({ postId, initialBody, token }) {
+export default function EditPostDialog({ postId, initialBody }) {
   const [postBody, setPostBody] = useState(initialBody || "");
   const [isOpen, setIsOpen] = useState(false);
   const { mutate: editPost, isPending } = useEditPost();
@@ -26,7 +26,7 @@ export default function EditPostDialog({ postId, initialBody, token }) {
     if (!postBody.trim()) return;
 
     editPost(
-      { id: postId, body: postBody, token },
+      { id: postId, body: postBody },
       {
         onSuccess: () => {
           setIsOpen(false);
