@@ -1,7 +1,7 @@
 import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import Post from "@/components/post";
+import Post from "@/components/posts/post";
 import { Home, FileText } from "lucide-react";
 
 export default function PostPage({ params }: { params: { id: string } }) {

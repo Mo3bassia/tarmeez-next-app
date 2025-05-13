@@ -1,5 +1,5 @@
 "use client";
-import { Post } from "./post";
+import { Post } from "./postDetailsView";
 import { usePosts } from "@/hooks/use-posts";
 import { useCallback, useRef } from "react";
 import { SkeletonPost } from "../common/skeleton-post";
