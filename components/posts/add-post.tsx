@@ -12,7 +12,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCheckLogin } from "@/hooks/use-check-login";
-import { AlertCircle, ImageIcon, Loader2, PlusIcon, X } from "lucide-react";
+import { Icons } from "@/components/icons";
 import { useEffect, useRef, useState } from "react";
 import { Textarea } from "@/components/ui/textarea";
 import { useAddPost } from "@/hooks/use-add-post";
@@ -120,7 +120,7 @@ export function AddPost() {
           className="rounded-full h-14 w-14 fixed bottom-6 right-6 shadow-lg z-10"
           variant="default"
         >
-          <PlusIcon className="h-6 w-6" />
+          <Icons.plus className="h-6 w-6" />
           <span className="sr-only">Add post</span>
         </Button>
       </DialogTrigger>
@@ -133,7 +133,7 @@ export function AddPost() {
 
           {error && (
             <div className="w-full mt-2 bg-destructive/10 text-destructive text-sm p-3 rounded-md flex items-start">
-              <AlertCircle className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
+              <Icons.alertCircle className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
               <p>{error}</p>
             </div>
           )}
@@ -191,7 +191,7 @@ export function AddPost() {
                     htmlFor="image"
                     className="flex items-center gap-2 p-2 border-2 border-dashed rounded-lg cursor-pointer hover:bg-secondary/20"
                   >
-                    <ImageIcon className="w-5 h-5 text-gray-500" />
+                    <Icons.image className="w-5 h-5 text-gray-500" />
                     <span className="text-sm text-gray-600">
                       Choose an image (optional)
                     </span>
@@ -208,7 +208,7 @@ export function AddPost() {
                 ) : (
                   <div className="flex items-center justify-between p-2 border rounded-lg bg-gray-50">
                     <div className="flex items-center gap-2">
-                      <ImageIcon className="w-5 h-5 text-gray-500" />
+                      <Icons.image className="w-5 h-5 text-gray-500" />
                       <span
                         className="text-sm text-gray-800 font-medium truncate max-w-[200px]"
                         title={imageName}
@@ -224,7 +224,7 @@ export function AddPost() {
                       onClick={removeImage}
                       disabled={isPending}
                     >
-                      <X className="h-4 w-4" />
+                      <Icons.x className="h-4 w-4" />
                     </Button>
                   </div>
                 )}
@@ -235,7 +235,7 @@ export function AddPost() {
               <Button type="submit" disabled={isPending} className="w-full">
                 {isPending ? (
                   <>
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    <Icons.loader2 className="h-4 w-4 mr-2 animate-spin" />
                     Creating Post...
                   </>
                 ) : (

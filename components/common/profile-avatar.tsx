@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
-import { User } from "lucide-react";
+import { Icons } from "@/components/icons";
 import Image from "next/image";
 
 export default function ProfileAvatar({
@@ -21,7 +21,7 @@ export default function ProfileAvatar({
 
   const fallbackContent = (
     <AvatarFallback className="flex justify-center items-center">
-      <User className={`w-${iconSize} h-${iconSize} text-foreground/50`} />
+      <Icons.user className={`w-${iconSize} h-${iconSize} text-foreground/50`} />
     </AvatarFallback>
   );
 

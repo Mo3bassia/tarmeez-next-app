@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { Icons } from "@/components/icons";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "@/components/ui/form";
@@ -50,7 +50,7 @@ export default function AuthForm<T extends Record<string, any>>({
     <>
       {error && (
         <div className="w-full mt-2 col-span-4 bg-destructive/10 text-destructive text-sm p-3 rounded-md flex items-start">
-          <AlertCircle className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
+          <Icons.alertCircle className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
           <p>{error}</p>
         </div>
       )}
@@ -69,7 +69,7 @@ export default function AuthForm<T extends Record<string, any>>({
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <Icons.loader2 className="mr-2 h-4 w-4 animate-spin" />
                   {loadingText || "Processing..."}
                 </>
               ) : (

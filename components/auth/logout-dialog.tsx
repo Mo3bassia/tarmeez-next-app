@@ -10,7 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { Loader2 } from "lucide-react";
+import { Icons } from "@/components/icons";
 
 interface LogoutDialogProps {
   isOpen: boolean;
@@ -45,7 +45,7 @@ export default function LogoutDialog({
           >
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Icons.loader2 className="mr-2 h-4 w-4 animate-spin" />
                 Logging out...
               </>
             ) : (

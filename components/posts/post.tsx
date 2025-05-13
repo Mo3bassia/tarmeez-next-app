@@ -5,8 +5,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import { Calendar, MessageCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Icons } from "@/components/icons";
 import ProfileAvatar from "../common/profile-avatar";
 import ImagePost from "../common/image-post";
 import { Post as PostProps } from "@/lib/validations/post";
@@ -51,7 +50,7 @@ export default function PostProfile({ id }: { id: string }) {
             </div>
 
             <div className="flex items-center gap-1 text-xs text-muted-foreground bg-muted/40 px-2.5 py-0.5 rounded-full">
-              <Calendar className="w-3 h-3 mr-0.5" />
+              <Icons.calendar className="w-3 h-3 mr-0.5" />
               <span>{post.created_at}</span>
             </div>
           </div>

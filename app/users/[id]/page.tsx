@@ -2,7 +2,7 @@ import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import User from "@/components/user";
-import { Home, Users } from "lucide-react";
+import { Icons } from "@/components/icons";
 
 export default async function UserPage({
   params: { id },
@@ -18,12 +18,12 @@ export default async function UserPage({
             {
               title: "",
               href: "/",
-              icon: <Home className="h-3.5 w-3.5" />,
+              icon: <Icons.home className="h-3.5 w-3.5" />,
             },
             {
               title: "Users",
               href: "/users",
-              icon: <Users className="h-3.5 w-3.5" />,
+              icon: <Icons.users className="h-3.5 w-3.5" />,
             },
             {
               title: `User #${id}`,

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { AlertCircle, ImageIcon, Loader2 } from "lucide-react";
+import { Icons } from "@/components/icons";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -78,7 +78,7 @@ export default function RegisterForm({
     <>
       {error && (
         <div className="w-full mt-2 mb-4 bg-destructive/10 text-destructive text-sm p-3 rounded-md flex items-start">
-          <AlertCircle className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
+          <Icons.alertCircle className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0" />
           <p>{error}</p>
         </div>
       )}
@@ -177,7 +177,7 @@ export default function RegisterForm({
                 htmlFor="picture"
                 className="flex items-center gap-2 p-2 border-2 border-dashed rounded-lg cursor-pointer hover:bg-secondary/20"
               >
-                <ImageIcon className="w-5 h-5 text-gray-500" />
+                <Icons.imageIcon className="w-5 h-5 text-gray-500" />
                 <span className="text-sm text-gray-600">
                   {selectedFileName || "Choose profile picture"}
                 </span>
@@ -198,7 +198,7 @@ export default function RegisterForm({
             <Button type="submit" className="w-full" disabled={isLoading}>
               {isLoading ? (
                 <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  <Icons.loader2 className="h-4 w-4 mr-2 animate-spin" />
                   Creating Account...
                 </>
               ) : (

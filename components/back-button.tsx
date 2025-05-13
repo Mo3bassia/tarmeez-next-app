@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { Icons } from "@/components/icons";
 
 interface BackButtonProps {
   href?: string;
@@ -33,7 +33,7 @@ export function BackButton({
 
   return (
     <Button variant={variant} onClick={handleClick} className="mb-4 gap-2">
-      <ArrowLeft className="h-4 w-4" />
+      <Icons.arrowLeft className="h-4 w-4" />
       {label}
     </Button>
   );

@@ -8,16 +8,13 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Calendar, ExternalLink } from "lucide-react";
 
 import { Post as PostProps } from "@/lib/validations/posts";
 import ImagePost from "../common/image-post";
 import ProfileAvatar from "../common/profile-avatar";
 import { useCheckLogin } from "@/hooks/use-check-login";
-import { Pencil, Trash2 } from "lucide-react";
 import { useDeletePost } from "@/hooks/use-delete-post";
-import { Loader2 } from "lucide-react";
-import { useEditPost } from "@/hooks/use-edit-post";
+import { Icons } from "@/components/icons";
 import EditPostDialog from "./edit-post-dialog";
 
 export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
@@ -67,7 +64,7 @@ export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
             </div>
 
             <div className="flex items-center gap-1 text-xs text-muted-foreground bg-muted/40 px-2.5 py-0.5 rounded-full">
-              <Calendar className="w-3 h-3 mr-0.5" />
+              <Icons.calendar className="w-3 h-3 mr-0.5" />
               <span>{created_at}</span>
             </div>
           </div>
@@ -105,7 +102,7 @@ export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
                 size="sm"
                 className="gap-1.5 hover:bg-primary/5 hover:text-primary transition-colors text-muted-foreground px-2"
               >
-                <MessageCircle className="w-4 h-4" />
+                <Icons.messageCircle className="w-4 h-4" />
                 <span className="font-medium">{comments_count}</span>
                 <span>Comments</span>
               </Button>
@@ -125,9 +122,9 @@ export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
                   disabled={isDeletePending}
                 >
                   {isDeletePending ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <Icons.loader2 className="h-4 w-4 animate-spin" />
                   ) : (
-                    <Trash2 className="h-4 w-4" />
+                    <Icons.trash2 className="h-4 w-4" />
                   )}
                 </Button>
               </>
@@ -140,7 +137,7 @@ export const Post = forwardRef<HTMLDivElement, { post: PostProps }>(
                 className="text-xs text-muted-foreground hover:text-primary transition-colors gap-1"
               >
                 <span>View Post</span>
-                <ExternalLink className="h-3 w-3" />
+                <Icons.externalLink className="h-3 w-3" />
               </Button>
             </Link>
           </div>

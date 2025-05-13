@@ -11,7 +11,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Post as PostProps } from "@/lib/validations/post";
 import { Input } from "@/components/ui/input";
-import { Loader2, MessageCircle } from "lucide-react";
+import { Icons } from "@/components/icons";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ProfileAvatar from "../common/profile-avatar";
@@ -69,7 +69,7 @@ export default function PostComments({ data }) {
           size="sm"
           className="gap-1.5 hover:bg-primary/5 hover:text-primary transition-colors text-muted-foreground px-2"
         >
-          <MessageCircle className="w-4 h-4" />
+          <Icons.messageCircle className="w-4 h-4" />
           <span className="font-medium">{post.comments_count}</span>
           <span>Comments</span>
         </Button>
@@ -181,7 +181,7 @@ export default function PostComments({ data }) {
                 <Button type="submit" size="sm" disabled={isPending}>
                   {isPending ? (
                     <>
-                      <Loader2 className="h-3 w-3 mr-1 animate-spin" />
+                      <Icons.loader2 className="h-3 w-3 mr-1 animate-spin" />
                       Sending...
                     </>
                   ) : (

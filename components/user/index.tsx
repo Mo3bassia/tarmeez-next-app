@@ -1,7 +1,7 @@
 "use client";
 import { useUser } from "@/hooks/use-user";
 import { Card, CardHeader } from "@/components/ui/card";
-import { User, Mail, FileText, MessageSquare } from "lucide-react";
+import { Icons } from "@/components/icons";
 import ProfileAvatar from "../common/profile-avatar";
 import { User as UserProps } from "@/lib/validations/user";
 import UserError from "./user-error";
@@ -37,10 +37,10 @@ export default function UserProfile({ id }: { id: string }) {
             <div className="flex flex-col items-center md:items-start">
               <h1 className="text-2xl font-bold">{user.name}</h1>
               <p className="text-muted-foreground flex items-center gap-1">
-                <User className="h-4 w-4" />@{user.username}
+                <Icons.user className="h-4 w-4" />@{user.username}
               </p>
               <p className="text-sm text-muted-foreground mt-1 flex items-center gap-1">
-                <Mail className="h-4 w-4" />
+                <Icons.mail className="h-4 w-4" />
                 {user.email || "No email provided"}
               </p>
 
@@ -48,13 +48,13 @@ export default function UserProfile({ id }: { id: string }) {
                 <div className="flex flex-col items-center">
                   <p className="text-2xl font-bold">{user.posts_count}</p>
                   <p className="text-xs text-muted-foreground flex items-center gap-1">
-                    <FileText className="h-3 w-3" /> Posts
+                    <Icons.fileText className="h-3 w-3" /> Posts
                   </p>
                 </div>
                 <div className="flex flex-col items-center">
                   <p className="text-2xl font-bold">{user.comments_count}</p>
                   <p className="text-xs text-muted-foreground flex items-center gap-1">
-                    <MessageSquare className="h-3 w-3" /> Comments
+                    <Icons.messageSquare className="h-3 w-3" /> Comments
                   </p>
                 </div>
               </div>

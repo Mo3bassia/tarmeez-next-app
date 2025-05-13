@@ -7,7 +7,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { AlertCircle, RefreshCw, ArrowLeft } from "lucide-react";
+import { Icons } from "@/components/icons";
 import { useRouter } from "next/navigation";
 
 interface UserErrorProps {
@@ -24,7 +24,7 @@ export default function UserError({ error, reset }: UserErrorProps) {
         <CardHeader className="pb-2">
           <div className="flex items-center justify-center">
             <div className="w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/20 flex items-center justify-center animate-pulse">
-              <AlertCircle className="h-8 w-8 text-red-500 dark:text-red-400" />
+              <Icons.alertCircle className="h-8 w-8 text-red-500 dark:text-red-400" />
             </div>
           </div>
           <h2 className="text-center text-2xl font-bold mt-4">
@@ -48,7 +48,7 @@ export default function UserError({ error, reset }: UserErrorProps) {
         <CardFooter className="gap-2 flex justify-center">
           {reset && (
             <Button onClick={reset} variant="default" className="gap-2 group">
-              <RefreshCw className="h-4 w-4 transition-transform group-hover:animate-spin" />
+              <Icons.refreshCw className="h-4 w-4 transition-transform group-hover:animate-spin" />
               Try Again
             </Button>
           )}
@@ -58,7 +58,7 @@ export default function UserError({ error, reset }: UserErrorProps) {
             className="gap-2"
             onClick={() => router.back()}
           >
-            <ArrowLeft className="h-4 w-4" />
+            <Icons.arrowLeft className="h-4 w-4" />
             Back
           </Button>
         </CardFooter>

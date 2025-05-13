@@ -9,12 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import {
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-} from "lucide-react";
+import { Icons } from "@/components/icons";
 import Link from "next/link";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
@@ -92,7 +87,7 @@ export const TablePagination = ({
               "pointer-events-none opacity-40": currentPage <= 1,
             })}
           >
-            <ChevronsLeft className="h-4 w-4" />
+            <Icons.chevronsLeft className="h-4 w-4" />
           </Link>
         </Button>
         <Button
@@ -107,7 +102,7 @@ export const TablePagination = ({
               "pointer-events-none opacity-40": currentPage <= 1,
             })}
           >
-            <ChevronLeft className="h-4 w-4" />
+            <Icons.chevronLeft className="h-4 w-4" />
           </Link>
         </Button>
 
@@ -123,7 +118,7 @@ export const TablePagination = ({
               "pointer-events-none opacity-40": currentPage >= totalPages,
             })}
           >
-            <ChevronRight className="h-4 w-4" />
+            <Icons.chevronRight className="h-4 w-4" />
           </Link>
         </Button>
         <Button
@@ -138,7 +133,7 @@ export const TablePagination = ({
               "pointer-events-none opacity-40": currentPage >= totalPages,
             })}
           >
-            <ChevronsRight className="h-4 w-4" />
+            <Icons.chevronsRight className="h-4 w-4" />
           </Link>
         </Button>
       </div>

@@ -2,7 +2,7 @@ import { BackButton } from "@/components/back-button";
 import { Container } from "@/components/container";
 import { Breadcrumbs } from "@/components/breadcrumbs";
 import Post from "@/components/posts/post";
-import { Home, FileText } from "lucide-react";
+import { Icons } from "@/components/icons";
 
 export default function PostPage({ params }: { params: { id: string } }) {
   return (
@@ -14,12 +14,12 @@ export default function PostPage({ params }: { params: { id: string } }) {
             {
               title: "",
               href: "/",
-              icon: <Home className="h-3.5 w-3.5" />,
+              icon: <Icons.home className="h-3.5 w-3.5" />,
             },
             {
               title: "Posts",
               href: "/posts",
-              icon: <FileText className="h-3.5 w-3.5" />,
+              icon: <Icons.fileText className="h-3.5 w-3.5" />,
             },
             {
               title: `Post #${params.id}`,

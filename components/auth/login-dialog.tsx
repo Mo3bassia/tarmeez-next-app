@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 import { LoginFormValues } from "@/lib/validations/login";
-import { Loader2 } from "lucide-react";
+import { Icons } from "@/components/icons";
 import { useLogin } from "@/hooks/use-login";
 import LoginForm from "./login-form";
 
@@ -55,7 +55,7 @@ export default function LoginDialog({
         <Button variant="outline" disabled={isLoading}>
           {isLoading ? (
             <>
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              <Icons.loader2 className="h-4 w-4 mr-2 animate-spin" />
               Wait...
             </>
           ) : (

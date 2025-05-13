@@ -4,16 +4,7 @@ import RegisterDialog from "../../auth/register-dialog";
 import { useCheckLogin } from "@/hooks/use-check-login";
 import Logout from "../../auth/logout";
 import { Button } from "@/components/ui/button";
-import {
-  Loader2,
-  User,
-  LogIn,
-  UserPlus,
-  LogOut,
-  Moon,
-  Sun,
-  Laptop,
-} from "lucide-react";
+import { Icons } from "@/components/icons";
 import ProfileAvatar from "@/components/common/profile-avatar";
 import Link from "next/link";
 import {
@@ -45,7 +36,7 @@ export default function LoginButtons() {
     return (
       <div className="flex gap-1 items-center">
         <Button variant="outline" disabled className="flex items-center gap-2">
-          <Loader2 className="h-4 w-4 animate-spin" />
+          <Icons.loader2 className="h-4 w-4 animate-spin" />
           <span>Checking...</span>
         </Button>
       </div>
@@ -86,7 +77,7 @@ export default function LoginButtons() {
               <DropdownMenuGroup>
                 <DropdownMenuItem asChild>
                   <Link href={`/users/${user.id}`}>
-                    <User className="mr-2 h-4 w-4" />
+                    <Icons.user className="mr-2 h-4 w-4" />
                     <span>Profile</span>
                   </Link>
                 </DropdownMenuItem>
@@ -96,27 +87,27 @@ export default function LoginButtons() {
               {/* Theme selector with submenu */}
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
-                  <Sun className="mr-2 h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                  <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                  <Icons.sun className="mr-2 h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                  <Icons.moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                   <span>Theme</span>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent>
                   <DropdownMenuItem onClick={() => setTheme("light")}>
-                    <Sun className="mr-2 h-4 w-4" />
+                    <Icons.sun className="mr-2 h-4 w-4" />
                     <span>Light</span>
                     {theme === "light" && (
                       <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary" />
                     )}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => setTheme("dark")}>
-                    <Moon className="mr-2 h-4 w-4" />
+                    <Icons.moon className="mr-2 h-4 w-4" />
                     <span>Dark</span>
                     {theme === "dark" && (
                       <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary" />
                     )}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => setTheme("system")}>
-                    <Laptop className="mr-2 h-4 w-4" />
+                    <Icons.laptop className="mr-2 h-4 w-4" />
                     <span>System</span>
                     {theme === "system" && (
                       <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary" />
@@ -132,7 +123,7 @@ export default function LoginButtons() {
                   document.getElementById("logout-button")?.click();
                 }}
               >
-                <LogOut className="mr-2 h-4 w-4" />
+                <Icons.logout className="mr-2 h-4 w-4" />
                 <span>Log out</span>
               </DropdownMenuItem>
             </>
@@ -146,7 +137,7 @@ export default function LoginButtons() {
                   setShowLoginDialog(true);
                 }}
               >
-                <LogIn className="mr-2 h-4 w-4" />
+                <Icons.login className="mr-2 h-4 w-4" />
                 <span>Login</span>
               </DropdownMenuItem>
               <DropdownMenuItem
@@ -155,7 +146,7 @@ export default function LoginButtons() {
                   setShowRegisterDialog(true);
                 }}
               >
-                <UserPlus className="mr-2 h-4 w-4" />
+                <Icons.userPlus className="mr-2 h-4 w-4" />
                 <span>Register</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
@@ -163,27 +154,27 @@ export default function LoginButtons() {
               {/* Theme selector for non-logged in users */}
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
-                  <Sun className="mr-2 h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                  <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                  <Icons.sun className="mr-2 h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+                  <Icons.moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                   <span>Theme</span>
                 </DropdownMenuSubTrigger>
                 <DropdownMenuSubContent>
                   <DropdownMenuItem onClick={() => setTheme("light")}>
-                    <Sun className="mr-2 h-4 w-4" />
+                    <Icons.sun className="mr-2 h-4 w-4" />
                     <span>Light</span>
                     {theme === "light" && (
                       <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary" />
                     )}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => setTheme("dark")}>
-                    <Moon className="mr-2 h-4 w-4" />
+                    <Icons.moon className="mr-2 h-4 w-4" />
                     <span>Dark</span>
                     {theme === "dark" && (
                       <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary" />
                     )}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => setTheme("system")}>
-                    <Laptop className="mr-2 h-4 w-4" />
+                    <Icons.laptop className="mr-2 h-4 w-4" />
                     <span>System</span>
                     {theme === "system" && (
                       <div className="ml-auto h-1.5 w-1.5 rounded-full bg-primary" />

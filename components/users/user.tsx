@@ -8,7 +8,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Mail, FileText, MessageSquare } from "lucide-react";
+import { Icons } from "@/components/icons";
 import ProfileAvatar from "../common/profile-avatar";
 import { User as UserProps } from "@/lib/validations/user";
 
@@ -51,7 +51,7 @@ export function User({ user, ref }: { user: UserProps }) {
               <p className="text-sm text-muted-foreground">@{username}</p>
               {email && (
                 <div className="flex items-center gap-1 text-xs text-muted-foreground mt-1">
-                  <Mail className="w-3 h-3" />
+                  <Icons.mail className="w-3 h-3" />
                   <span>{email}</span>
                 </div>
               )}
@@ -69,7 +69,7 @@ export function User({ user, ref }: { user: UserProps }) {
           <div className="bg-muted/30 p-3 rounded-lg text-center">
             <div className="text-2xl font-bold text-primary">{posts_count}</div>
             <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              <FileText className="w-4 h-4" />
+              <Icons.fileText className="w-4 h-4" />
               <span>Posts</span>
             </div>
           </div>
@@ -79,7 +79,7 @@ export function User({ user, ref }: { user: UserProps }) {
               {comments_count}
             </div>
             <div className="flex items-center justify-center gap-1 text-sm text-muted-foreground">
-              <MessageSquare className="w-4 h-4" />
+              <Icons.messageSquare className="w-4 h-4" />
               <span>Comments</span>
             </div>
           </div>

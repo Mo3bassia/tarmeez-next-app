@@ -13,7 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useEditPost } from "@/hooks/use-edit-post";
-import { Loader2, Pencil } from "lucide-react";
+import { Icons } from "@/components/icons";
 
 export default function EditPostDialog({ postId, initialBody }) {
   const [postBody, setPostBody] = useState(initialBody || "");
@@ -44,7 +44,7 @@ export default function EditPostDialog({ postId, initialBody }) {
           className="text-xs text-muted-foreground hover:text-blue-500 transition-colors"
           title="Edit post"
         >
-          <Pencil className="h-4 w-4" />
+          <Icons.pencil className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[500px]">
@@ -90,7 +90,7 @@ export default function EditPostDialog({ postId, initialBody }) {
             >
               {isPending ? (
                 <>
-                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  <Icons.loader2 className="h-4 w-4 mr-2 animate-spin" />
                   Updating...
                 </>
               ) : (

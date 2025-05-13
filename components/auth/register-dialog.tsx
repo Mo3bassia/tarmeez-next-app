@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import { Icons } from "@/components/icons";
 import { useRegister } from "@/hooks/use-register";
 import RegisterForm from "./register-form";
 
@@ -55,7 +55,7 @@ export default function RegisterDialog({
         <Button variant="outline" disabled={isLoading}>
           {isLoading ? (
             <>
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              <Icons.loader2 className="h-4 w-4 mr-2 animate-spin" />
               Wait...
             </>
           ) : (

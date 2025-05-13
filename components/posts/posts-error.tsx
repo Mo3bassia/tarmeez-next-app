@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { RefreshCw, AlertTriangle } from "lucide-react";
+import { Icons } from "@/components/icons";
 
 interface PostsErrorProps {
   error: Error;
@@ -10,7 +10,7 @@ export function PostsError({ error, reset }: PostsErrorProps) {
   return (
     <div className="mt-20 flex flex-col items-center justify-center py-10 px-4 bg-card rounded-lg border border-border/50 max-w-2xl mx-auto shadow-sm">
       <div className="p-4 rounded-full bg-red-100 dark:bg-red-900/20 mb-4 animate-pulse">
-        <AlertTriangle className="h-10 w-10 text-red-600 dark:text-red-400" />
+        <Icons.alertTriangle className="h-10 w-10 text-red-600 dark:text-red-400" />
       </div>
 
       <h2 className="text-2xl font-bold mb-2">Failed to load posts</h2>
@@ -27,7 +27,7 @@ export function PostsError({ error, reset }: PostsErrorProps) {
       </div>
 
       <Button onClick={reset} className="gap-2 group" variant="default">
-        <RefreshCw className="h-4 w-4 group-hover:animate-spin transition-all duration-150" />
+        <Icons.refreshCw className="h-4 w-4 group-hover:animate-spin transition-all duration-150" />
         Try Again
       </Button>
     </div>

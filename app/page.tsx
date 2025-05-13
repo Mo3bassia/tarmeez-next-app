@@ -1,11 +1,5 @@
 import Link from "next/link";
-import {
-  FileText,
-  Users,
-  ArrowRight,
-  MessageSquare,
-  TrendingUp,
-} from "lucide-react";
+import { Icons } from "@/components/icons";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -18,7 +12,7 @@ export default function Home() {
         <div className="container px-4 md:px-6 mx-auto relative z-10">
           <div className="flex flex-col items-center text-center space-y-4">
             <div className="rounded-full bg-primary/10 p-4 text-primary">
-              <TrendingUp className="h-10 w-10" />
+              <Icons.trendingUp className="h-10 w-10" />
             </div>
 
             <h1 className="text-4xl md:text-5xl font-bold tracking-tighter max-w-3xl">
@@ -33,7 +27,7 @@ export default function Home() {
             <div className="flex flex-wrap justify-center gap-4 mt-6">
               <Button asChild size="lg" className="gap-2">
                 <Link href="/posts">
-                  Explore Posts <ArrowRight className="h-4 w-4" />
+                  Explore Posts <Icons.arrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
@@ -55,7 +49,7 @@ export default function Home() {
               <Link href="/posts" className="block h-full">
                 <CardContent className="p-6 flex flex-col h-full">
                   <div className="rounded-full bg-primary/10 p-3 w-fit mb-4 group-hover:bg-primary/20 transition-colors">
-                    <FileText className="h-6 w-6 text-primary" />
+                    <Icons.fileText className="h-6 w-6 text-primary" />
                   </div>
 
                   <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
@@ -69,10 +63,10 @@ export default function Home() {
 
                   <div className="flex items-center justify-between mt-4 pt-4 border-t border-border/30">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <MessageSquare className="h-4 w-4" />
+                      <Icons.messageSquare className="h-4 w-4" />
                       <span>Community Discussions</span>
                     </div>
-                    <ArrowRight className="h-5 w-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Icons.arrowRight className="h-5 w-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
                 </CardContent>
               </Link>
@@ -82,7 +76,7 @@ export default function Home() {
               <Link href="/users" className="block h-full">
                 <CardContent className="p-6 flex flex-col h-full">
                   <div className="rounded-full bg-primary/10 p-3 w-fit mb-4 group-hover:bg-primary/20 transition-colors">
-                    <Users className="h-6 w-6 text-primary" />
+                    <Icons.users className="h-6 w-6 text-primary" />
                   </div>
 
                   <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
@@ -96,10 +90,10 @@ export default function Home() {
 
                   <div className="flex items-center justify-between mt-4 pt-4 border-t border-border/30">
                     <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Users className="h-4 w-4" />
+                      <Icons.users className="h-4 w-4" />
                       <span>Community Network</span>
                     </div>
-                    <ArrowRight className="h-5 w-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <Icons.arrowRight className="h-5 w-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
                 </CardContent>
               </Link>

@@ -1,7 +1,7 @@
 import { Container } from "@/components/container";
 import Posts from "@/components/posts/posts";
 import { Breadcrumbs } from "@/components/breadcrumbs";
-import { Home, FileText } from "lucide-react";
+import { Icons } from "@/components/icons";
 import { AddPost } from "@/components/posts/add-post";
 
 export default function PostsPage() {
@@ -13,7 +13,7 @@ export default function PostsPage() {
             {
               title: "",
               href: "/",
-              icon: <Home className="h-3.5 w-3.5" />,
+              icon: <Icons.home className="h-3.5 w-3.5" />,
             },
             {
               title: "Posts",

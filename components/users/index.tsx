@@ -8,7 +8,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
-import { MoreHorizontal, Eye, Home } from "lucide-react";
+import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -64,7 +64,7 @@ export default function Users() {
               {
                 title: "",
                 href: "/",
-                icon: <Home className="h-3.5 w-3.5" />,
+                icon: <Icons.home className="h-3.5 w-3.5" />,
               },
               {
                 title: "Users",
@@ -110,7 +110,7 @@ export default function Users() {
             {
               title: "",
               href: "/",
-              icon: <Home className="h-3.5 w-3.5" />,
+              icon: <Icons.home className="h-3.5 w-3.5" />,
             },
             {
               title: "Users",
@@ -176,7 +176,7 @@ export default function Users() {
                         <DropdownMenuTrigger asChild>
                           <Button variant="ghost" className="h-8 w-8 p-0">
                             <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
+                            <Icons.moreHorizontal className="h-4 w-4" />
                           </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
@@ -185,7 +185,7 @@ export default function Users() {
                           </DropdownMenuLabel>
                           <DropdownMenuItem asChild>
                             <Link href={`/users/${user.id}`}>
-                              <Eye className="mr-2 h-4 w-4" />
+                              <Icons.eye className="mr-2 h-4 w-4" />
                               View Profile
                             </Link>
                           </DropdownMenuItem>
