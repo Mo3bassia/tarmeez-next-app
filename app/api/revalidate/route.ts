@@ -1,0 +1,31 @@
+import { revalidatePath, revalidateTag } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function GET(request: NextRequest) {
+  const path = request.nextUrl.searchParams.get("path") || "/";
+  const tag = request.nextUrl.searchParams.get("tag");
+
+  try {
+    revalidatePath(path);
+
+    if (tag) {
+      revalidateTag(tag);
+    }
+
+    return NextResponse.json({
+      revalidated: true,
+      now: Date.now(),
+      path,
+      tag,
+    });
+  } catch (err) {
+    return NextResponse.json(
+      {
+        revalidated: false,
+        now: Date.now(),
+        error: (err as Error).message,
+      },
+      { status: 500 }
+    );
+  }
+}
