@@ -13,6 +13,8 @@ import PostError from "./post-error";
 import { usePost } from "@/hooks/use-post";
 import { SkeletonPost } from "../common/skeleton-post";
 import PostComments from "./post-comments";
+import Link from "next/link";
+import { Button } from "../ui/button";
 
 export default function PostProfile({ id }: { id: string }) {
   const { data, error, isLoading, isFetching } = usePost(id);
@@ -79,7 +81,18 @@ export default function PostProfile({ id }: { id: string }) {
         </CardContent>
 
         <CardFooter className="px-3 py-2 border-t border-border/20">
-          <PostComments data={data} />
+          {/* <PostComments data={data} /> */}
+          <Link href={`/posts/${post.id}/comments`}>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="gap-1.5 hover:bg-primary/5 hover:text-primary transition-colors text-muted-foreground px-2"
+            >
+              <Icons.messageCircle className="w-4 h-4" />
+              <span className="font-medium">{post.comments_count}</span>
+              <span>Comments</span>
+            </Button>
+          </Link>
         </CardFooter>
       </Card>
     </div>

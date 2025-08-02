@@ -12,8 +12,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Post as PostProps } from "@/lib/validations/post";
 import { Input } from "@/components/ui/input";
 import { Icons } from "@/components/icons";
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 import ProfileAvatar from "../common/profile-avatar";
 import { useCheckLogin } from "@/hooks/use-check-login";
 import { useAddComent } from "@/hooks/use-add-comment";
@@ -22,16 +20,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { DialogClose } from "@radix-ui/react-dialog";
+import { useRouter } from "next/navigation";
 
 const commentSchema = z.object({
   body: z.string().min(1, "Comment cannot be empty"),
 });
-
 type CommentFormValues = z.infer<typeof commentSchema>;
 
-export default function PostComments({ data }) {
-  const searchParams = useSearchParams();
+export function PostCommentsDialog({ data }) {
   const post: PostProps = data?.data;
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const { data: currentUser } = useCheckLogin();
   const { mutate: addComment, isPending } = useAddComent();
@@ -44,8 +44,13 @@ export default function PostComments({ data }) {
   });
 
   useEffect(() => {
-    if (searchParams.get("comments")) setIsOpen(true);
-  }, []);
+    if (data) setIsOpen(true);
+  }, [data]);
+
+  function handleClose() {
+    setIsOpen(false);
+    router.back();
+  }
 
   function handleAddComment(values: CommentFormValues) {
     const comment = {
@@ -63,21 +68,24 @@ export default function PostComments({ data }) {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        <Link href={`/posts/${post.id}/comments`}>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="gap-1.5 hover:bg-primary/5 hover:text-primary transition-colors text-muted-foreground px-2"
-          >
-            <Icons.messageCircle className="w-4 h-4" />
-            <span className="font-medium">{post.comments_count}</span>
-            <span>Comments</span>
-          </Button>
-        </Link>
-      </DialogTrigger>
-
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) {
+          handleClose();
+        } else {
+          setIsOpen(true);
+        }
+      }}
+    >
+      <DialogClose asChild>
+        <button
+          onClick={() => handleClose()}
+          className="absolute right-4 top-4 text-gray-500 hover:text-black"
+        >
+          <Icons.x className="h-4 w-4" />
+        </button>
+      </DialogClose>
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>Comments</DialogTitle>
