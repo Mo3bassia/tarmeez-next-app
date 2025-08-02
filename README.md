@@ -54,6 +54,19 @@ This is a comprehensive social media platform built with Next.js, showcasing adv
 - **Form Handling**: Client-side validation and form submission
 - **Error Handling**: Comprehensive error states and user feedback
 
+## 🆕 Latest Updates
+
+- **Upgraded dependencies:**
+  - Next.js to `15.4.5`
+  - React to `19.1.1`
+- **Toast notifications:**
+  - Integrated Sonner for rich toast notifications across the app.
+- **Comments Modal:**
+  - Comments now open in a modal dialog using Next.js parallel and intercepting routes for improved UX.
+  - Added `PostCommentsDialog` and modal layout for seamless comment interaction.
+- **Other improvements:**
+  - Enhanced feedback for post creation, editing, deletion, login, logout, and registration using Sonner toasts.
+
 ## 🔄 API Integration
 
 This project integrates with the [Tarmeez Academy Social Media API](https://documenter.getpostman.com/view/4696539/2s83zjqN3F#d3ca0bfa-e458-4b4a-b16b-86c9e0dd932d), implementing:
