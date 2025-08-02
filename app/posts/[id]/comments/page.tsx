@@ -146,6 +146,9 @@ export default function Comments({
           )}
         </CardContent>
       </Card>
+      <h3 className="text-lg font-semibold text-foreground mb-3 max-w-2xl mx-auto">
+        Comments
+      </h3>
       <ScrollArea className="w-full max-w-2xl mx-auto h-[300px] pr-4 mt-2 border border-border/20 rounded-lg bg-muted/10">
         <div className="flex flex-col gap-3 p-4">
           {post.comments?.length > 0 ? (
