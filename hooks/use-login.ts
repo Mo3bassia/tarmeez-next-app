@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { toast } from "sonner";
 
 export function useLogin() {
   const queryClient = useQueryClient();
@@ -12,9 +13,15 @@ export function useLogin() {
     },
     onError: (error) => {
       console.error("Login error:", error);
+      toast.error("Login failed: " + error.message, {
+        description: "Please check your credentials and try again.",
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["check-login"] });
+      toast("Login successful", {
+        description: "You have logged in successfully.",
+      });
     },
   });
 }

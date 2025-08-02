@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import { Container } from "@/components/container";
 import ReactQueryProvider from "@/components/react-query-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,6 +29,7 @@ export default function RootLayout({
             <Container className="mb-5">
               <Navbar />
               {children}
+              <Toaster richColors />
             </Container>
           </ThemeProvider>
         </ReactQueryProvider>

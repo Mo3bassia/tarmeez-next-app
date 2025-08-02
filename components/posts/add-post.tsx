@@ -27,6 +27,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { toast } from "sonner";
 
 // Define post schema
 const postSchema = z.object({
@@ -98,12 +99,16 @@ export function AddPost() {
         form.reset();
         setImageName("");
         setSelectedFile(null);
+        toast("Post created successfully", {
+          description: "Your post has been created.",
+        });
       },
       onError: (error) => {
         setErrors(
           error.response?.data?.message ||
             "Failed to create post. Please try again."
         );
+        toast.error("Failed to create post: " + error.message);
       },
     });
   };

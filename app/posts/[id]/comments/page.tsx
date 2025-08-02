@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAddComent } from "@/hooks/use-add-comment";
 import Link from "next/link";
+import { toast } from "sonner";
 
 const commentSchema = z.object({
   body: z.string().min(1, "Comment cannot be empty"),
@@ -64,8 +65,13 @@ export default function Comments({
     addComment(comment, {
       onSuccess: (result) => {
         form.reset();
+        toast("Comment added successfully", {
+          description: "Your comment has been added.",
+        });
       },
-      onError: (error) => {},
+      onError: (error) => {
+        toast.error("Failed to add comment: " + error.message);
+      },
     });
   }
 

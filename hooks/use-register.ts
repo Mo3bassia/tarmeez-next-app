@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
+import { toast } from "sonner";
 
 export function useRegister() {
   const queryClient = useQueryClient();
@@ -15,6 +16,9 @@ export function useRegister() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["check-login"] });
+      toast("Registration successful", {
+        description: "You have registered successfully. Please log in.",
+      });
     },
   });
 }

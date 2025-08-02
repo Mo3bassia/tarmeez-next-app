@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useEditPost } from "@/hooks/use-edit-post";
 import { Icons } from "@/components/icons";
+import { toast } from "sonner";
 
 export default function EditPostDialog({ postId, initialBody }) {
   const [postBody, setPostBody] = useState(initialBody || "");
@@ -30,6 +31,12 @@ export default function EditPostDialog({ postId, initialBody }) {
       {
         onSuccess: () => {
           setIsOpen(false);
+          toast("Post updated successfully", {
+            description: "Your post has been updated.",
+          });
+        },
+        onError: (error) => {
+          toast.error("Failed to update post: " + error.message);
         },
       }
     );
