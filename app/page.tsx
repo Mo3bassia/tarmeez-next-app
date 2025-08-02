@@ -25,11 +25,11 @@ export default function Home() {
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 mt-6">
-              <Button asChild size="lg" className="gap-2">
-                <Link href="/posts">
+              <Link href="/posts">
+                <Button size="lg" className="gap-2">
                   Explore Posts <Icons.arrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
+                </Button>
+              </Link>
               <Button asChild variant="outline" size="lg">
                 <Link href="/users">Meet Our Users</Link>
               </Button>
